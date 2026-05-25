@@ -1,0 +1,9 @@
+{
+  "short_name": "My Finances",
+  "name": "My Finances Tracker",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f7f5f2",
+  "theme_color": "#1a1a1a",
+  "orientation": "portrait"
+}
