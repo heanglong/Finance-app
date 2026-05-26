@@ -190,24 +190,88 @@ function exportPDF(title, htmlContent) {
   win.document.close();
 }
 
+// ─── localStorage helpers ─────────────────────────────────────────────────────
+function loadStorage(key, fallback) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch { return fallback; }
+}
+function saveStorage(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────────
 export default function App() {
-  const [pocket,   setPocket]   = useState("personal");
-  const [tab,      setTab]      = useState("overview");
-  const [txData,   setTxData]   = useState(SEED);
-  const [budgets,  setBudgets]  = useState(DEFAULT_BUDGETS);
-  const [cats,     setCats]     = useState(DEFAULT_CATS);  // custom categories
-  const [showAdd,  setShowAdd]  = useState(false);
-  const [showCats, setShowCats] = useState(false);
-  const [form,     setForm]     = useState({ type:"expense", category:"", amount:"", note:"", date:today() });
-  const [mounted,  setMounted]  = useState(false);
+  const [pocket,    setPocket]   = useState("personal");
+  const [tab,       setTab]      = useState("overview");
+  const [txData,    setTxData]   = useState(() => loadStorage("fin_txData",  SEED));
+  const [budgets,   setBudgets]  = useState(() => loadStorage("fin_budgets", DEFAULT_BUDGETS));
+  const [cats,      setCats]     = useState(() => loadStorage("fin_cats",    DEFAULT_CATS));
+  const [userName,  setUserName] = useState(() => loadStorage("fin_userName", null));
+  const [nameInput, setNameInput]= useState("");
+  const [shopInput, setShopInput]= useState("");
+  const [shopName,  setShopName] = useState(() => loadStorage("fin_shopName", "Coffee Shop"));
+  const [showAdd,   setShowAdd]  = useState(false);
+  const [showCats,  setShowCats] = useState(false);
+  const [form,      setForm]     = useState({ type:"expense", category:"", amount:"", note:"", date:today() });
+  const [mounted,   setMounted]  = useState(false);
+
+  // Persist to localStorage whenever data changes
+  useEffect(() => { saveStorage("fin_txData",  txData);    }, [txData]);
+  useEffect(() => { saveStorage("fin_budgets", budgets);   }, [budgets]);
+  useEffect(() => { saveStorage("fin_cats",    cats);      }, [cats]);
+  useEffect(() => { saveStorage("fin_userName", userName); }, [userName]);
+  useEffect(() => { saveStorage("fin_shopName", shopName); }, [shopName]);
 
   useEffect(()=>{ setMounted(true); },[]);
   useEffect(()=>{
     setForm(f=>({ ...f, category: cats[pocket][f.type][0] || "" }));
   },[pocket, cats]);
 
-  const P       = POCKET_META[pocket];
+  // ── First-time setup screen ──
+  if (!userName) {
+    return (
+      <div style={s.shell}>
+        <style>{css}</style>
+        <div style={{ ...s.app, background:"#f7f5f2", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", minHeight:"100vh", padding:"40px 32px" }}>
+          <div style={{ fontSize:48, marginBottom:16 }}>👋</div>
+          <div style={{ fontSize:26, fontWeight:700, color:"#1a1a1a", marginBottom:8, textAlign:"center" }}>Welcome!</div>
+          <div style={{ fontSize:14, color:"#aaa", marginBottom:40, textAlign:"center" }}>Let's set up your finance tracker.</div>
+          <div style={{ width:"100%", maxWidth:360 }}>
+            <div style={{ fontSize:12, fontWeight:700, color:"#bbb", textTransform:"uppercase", letterSpacing:1.2, marginBottom:8 }}>Your Name</div>
+            <input
+              style={{ ...s.input, fontSize:17, marginBottom:6 }}
+              placeholder="e.g. Heang"
+              value={nameInput}
+              onChange={e => setNameInput(e.target.value)}
+            />
+            <div style={{ fontSize:12, color:"#ccc", marginBottom:24 }}>This will appear as "<b>{nameInput.trim() || "Your name"}'s Wallet</b>"</div>
+            <div style={{ fontSize:12, fontWeight:700, color:"#bbb", textTransform:"uppercase", letterSpacing:1.2, marginBottom:8 }}>Coffee Shop Name</div>
+            <input
+              style={{ ...s.input, fontSize:17, marginBottom:6 }}
+              placeholder="e.g. Heang's Café"
+              value={shopInput}
+              onChange={e => setShopInput(e.target.value)}
+            />
+            <div style={{ fontSize:12, color:"#ccc", marginBottom:32 }}>Leave blank to use "Coffee Shop"</div>
+            <button
+              style={{ ...s.submitBtn, background: nameInput.trim() ? "#1a1a1a" : "#ccc", fontSize:17 }}
+              disabled={!nameInput.trim()}
+              onClick={() => { if(nameInput.trim()) { setUserName(nameInput.trim()); setShopName(shopInput.trim() || "Coffee Shop"); }}}
+            >
+              Get Started →
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Dynamic pocket labels using user's name
+  const POCKET_DISPLAY = {
+    personal:   { ...POCKET_META.personal,   label: `${userName}'s Wallet` },
+    coffeeshop: { ...POCKET_META.coffeeshop, label: shopName },
+  };
+
+  const P       = POCKET_DISPLAY[pocket];
   const txs     = txData[pocket];
   const pCats   = cats[pocket];
   const pBudgets= budgets[pocket];
@@ -250,7 +314,7 @@ export default function App() {
 
         {/* Pocket switcher */}
         <div style={s.pocketBar}>
-          {Object.values(POCKET_META).map(p=>(
+          {Object.values(POCKET_DISPLAY).map(p=>(
             <button key={p.id}
               style={{ ...s.pocketBtn, ...(pocket===p.id?{ ...s.pocketActive, background:p.accent }:{}) }}
               onClick={()=>{ setPocket(p.id); setTab("overview"); }}>
