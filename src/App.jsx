@@ -363,7 +363,7 @@ export default function App() {
         <div style={s.content}>
           {tab==="overview"     && <Overview recent={recent} budgets={pBudgets} spentByCategory={spentByCategory} fmt={fmt} deleteTransaction={deleteTx} accent={P.accent}/>}
           {tab==="transactions" && <Transactions transactions={txs} fmt={fmt} deleteTransaction={deleteTx} accent={P.accent}/>}
-          {tab==="budgets"      && <Budgets budgets={pBudgets} setBudgets={b=>setBudgets(prev=>({ ...prev, [pocket]:b }))} spentByCategory={spentByCategory} fmt={fmt} accent={P.accent}/>}
+          {tab==="budgets"      && <Budgets budgets={pBudgets} setBudgets={b=>setBudgets(prev=>({ ...prev, [pocket]:b }))} spentByCategory={spentByCategory} fmt={fmt} accent={P.accent} pocketCats={pCats}/>}
           {tab==="reports"      && <Reports transactions={txs} fmt={fmt} accent={P.accent} pocketLabel={P.label}/>}
         </div>
       </div>
@@ -504,28 +504,87 @@ function TxRow({ t, fmt, onDelete }) {
 }
 
 // ─── Budgets ──────────────────────────────────────────────────────────────────
-function Budgets({ budgets, setBudgets, spentByCategory, fmt, accent }) {
-  const [editing,setEditing]=useState(null);
-  const [newLimit,setNewLimit]=useState("");
-  const save=()=>{ if(!newLimit||isNaN(newLimit))return; setBudgets(budgets.map(b=>b.category===editing?{ ...b, limit:parseFloat(newLimit) }:b)); setEditing(null); setNewLimit(""); };
+function Budgets({ budgets, setBudgets, spentByCategory, fmt, accent, pocketCats }) {
+  const [editing,  setEditing]  = useState(null);
+  const [newLimit, setNewLimit] = useState("");
+  const [showAdd,  setShowAdd]  = useState(false);
+  const [newCat,   setNewCat]   = useState("");
+  const [newBudget,setNewBudget]= useState("");
+
+  const allExpenseCats = pocketCats.expense;
+  const usedCats = budgets.map(b => b.category);
+  const availableCats = allExpenseCats.filter(c => !usedCats.includes(c));
+
+  const save = () => {
+    if (!newLimit || isNaN(newLimit)) return;
+    setBudgets(budgets.map(b => b.category === editing ? { ...b, limit: parseFloat(newLimit) } : b));
+    setEditing(null); setNewLimit("");
+  };
+
+  const addBudget = () => {
+    if (!newCat || !newBudget || isNaN(newBudget)) return;
+    const color = COLORS[budgets.length % COLORS.length];
+    setBudgets([...budgets, { category: newCat, limit: parseFloat(newBudget), color }]);
+    setNewCat(""); setNewBudget(""); setShowAdd(false);
+  };
+
+  const deleteBudget = (cat) => {
+    setBudgets(budgets.filter(b => b.category !== cat));
+  };
+
   return (
     <div>
-      <div style={s.sectionTitle}>Monthly Budgets</div>
-      {budgets.map(b=>{
-        const spent=spentByCategory(b.category), pct=Math.min((spent/b.limit)*100,100), over=spent>b.limit;
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12 }}>
+        <div style={s.sectionTitle}>Monthly Budgets</div>
+        <button style={{ ...s.editBtn, fontSize:13, color: accent, border:`1px solid ${accent}`, borderRadius:8, padding:"4px 10px" }}
+          onClick={() => setShowAdd(v => !v)}>
+          {showAdd ? "Cancel" : "+ Add Budget"}
+        </button>
+      </div>
+
+      {/* Add new budget form */}
+      {showAdd && (
+        <div style={{ ...s.budgetCard, background:"#fafafa", marginBottom:16 }}>
+          <div style={{ fontSize:13, fontWeight:600, color:"#1a1a1a", marginBottom:10 }}>New Budget</div>
+          <select style={{ ...s.input, marginBottom:8 }} value={newCat} onChange={e => setNewCat(e.target.value)}>
+            <option value="">Select category…</option>
+            {availableCats.map(c => <option key={c}>{c}</option>)}
+          </select>
+          <input style={{ ...s.input, marginBottom:8 }} type="number" placeholder="Monthly limit ($)"
+            value={newBudget} onChange={e => setNewBudget(e.target.value)} />
+          <button style={{ ...s.submitBtn, background: newCat && newBudget ? accent : "#ccc", marginTop:0 }}
+            disabled={!newCat || !newBudget} onClick={addBudget}>
+            Add Budget
+          </button>
+        </div>
+      )}
+
+      {budgets.length === 0 && (
+        <div style={s.empty}>No budgets yet. Tap "+ Add Budget" to get started.</div>
+      )}
+
+      {budgets.map(b => {
+        const spent = spentByCategory(b.category), pct = Math.min((spent/b.limit)*100, 100), over = spent > b.limit;
         return (
           <div key={b.category} style={s.budgetCard}>
             <div style={s.budgetTop}>
-              <div><div style={s.budgetCat}>{b.category}</div><div style={{ fontSize:12, color:"#888", marginTop:2 }}>{fmt(Math.max(b.limit-spent,0))} left</div></div>
+              <div>
+                <div style={s.budgetCat}>{b.category}</div>
+                <div style={{ fontSize:12, color:"#888", marginTop:2 }}>{fmt(Math.max(b.limit-spent,0))} left</div>
+              </div>
               <div style={{ textAlign:"right" }}>
                 <div style={{ ...s.txAmt, color:over?"#E05A5A":"#1a1a1a" }}>{fmt(spent)}<span style={{ fontSize:11, fontWeight:400, color:"#bbb" }}> / {fmt(b.limit)}</span></div>
-                <button style={s.editBtn} onClick={()=>{ setEditing(b.category); setNewLimit(String(b.limit)); }}>Edit limit</button>
+                <div style={{ display:"flex", gap:8, justifyContent:"flex-end", marginTop:4 }}>
+                  <button style={s.editBtn} onClick={()=>{ setEditing(b.category); setNewLimit(String(b.limit)); }}>Edit</button>
+                  <button style={{ ...s.editBtn, color:"#E05A5A" }} onClick={()=>deleteBudget(b.category)}>Delete</button>
+                </div>
               </div>
             </div>
             <div style={s.barTrack}><div style={{ ...s.barFill, width:`${pct}%`, background:over?"#E05A5A":b.color }}/></div>
-            {editing===b.category&&(
+            {editing === b.category && (
               <div style={{ display:"flex", gap:8, marginTop:10 }}>
-                <input style={{ ...s.input, flex:1, marginBottom:0 }} type="number" placeholder="New limit" value={newLimit} onChange={e=>setNewLimit(e.target.value)}/>
+                <input style={{ ...s.input, flex:1, marginBottom:0 }} type="number" placeholder="New limit"
+                  value={newLimit} onChange={e=>setNewLimit(e.target.value)}/>
                 <button style={{ ...s.submitBtn, padding:"10px 16px", marginTop:0, background:accent }} onClick={save}>Save</button>
               </div>
             )}
