@@ -2,504 +2,866 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tata Mama Coffee – Drink Posters</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700;800&display=swap');
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #0f0f1a;
+      background: #060610;
       padding: 48px 32px;
       font-family: 'Poppins', sans-serif;
     }
 
-    .page-title {
-      text-align: center;
-      color: #fff;
-      font-size: 1.3rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      font-weight: 300;
-      opacity: 0.6;
-    }
-
-    .brand-title {
-      text-align: center;
-      color: #fff;
-      font-family: 'Playfair Display', serif;
-      font-size: 2.6rem;
-      margin-bottom: 48px;
-    }
-
-    .hint {
-      text-align: center;
-      color: rgba(255,255,255,0.35);
-      font-size: 0.8rem;
-      margin-bottom: 56px;
-      letter-spacing: 1px;
-    }
-
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
-      gap: 48px;
+      grid-template-columns: repeat(auto-fill, minmax(800px, 1fr));
+      gap: 70px;
       justify-items: center;
-      max-width: 1300px;
+      max-width: 1800px;
       margin: 0 auto;
     }
 
-    /* ── BASE POSTER ── */
     .poster {
-      width: 560px;
-      height: 560px;
+      width: 800px;
+      height: 1060px;
       border-radius: 28px;
       position: relative;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      padding-bottom: 52px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-      cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.8);
     }
-    .poster:hover { transform: translateY(-6px); box-shadow: 0 44px 100px rgba(0,0,0,0.7); }
 
-    /* BG gradient layer */
-    .poster .bg { position: absolute; inset: 0; z-index: 0; }
+    .poster-bg { position: absolute; inset: 0; z-index: 0; }
 
-    /* Decorative circles */
-    .poster .deco {
+    /* Tropical leaves */
+    .leaf-tl {
+      position: absolute; top: -30px; left: -30px;
+      z-index: 3; width: 270px;
+      filter: drop-shadow(4px 10px 14px rgba(0,0,0,0.35));
+    }
+    .leaf-tr {
+      position: absolute; top: -30px; right: -30px;
+      z-index: 3; width: 250px;
+      filter: drop-shadow(-4px 10px 14px rgba(0,0,0,0.35));
+    }
+
+    /* Top text */
+    .top-content {
       position: absolute;
-      border-radius: 50%;
-      z-index: 1;
-      opacity: 0.18;
-    }
-
-    /* Daisy SVG decorations */
-    .poster .daisy {
-      position: absolute;
-      z-index: 2;
-      opacity: 0.22;
-    }
-
-    /* Cup illustration area */
-    .cup-area {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 58%;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .cup {
-      font-size: 120px;
-      line-height: 1;
-      filter: drop-shadow(0 12px 24px rgba(0,0,0,0.35));
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-10px); }
-    }
-
-    /* Bottom content */
-    .content {
-      position: relative;
-      z-index: 4;
-      text-align: center;
-      color: #fff;
-      padding: 0 32px;
-    }
-
-    .drink-label {
-      font-size: 0.7rem;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      opacity: 0.75;
-      margin-bottom: 8px;
-      font-weight: 400;
-    }
-
-    .drink-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.4rem;
-      line-height: 1.15;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    }
-
-    .drink-sub {
-      font-size: 0.78rem;
-      letter-spacing: 2px;
-      opacity: 0.6;
-      font-weight: 300;
-      text-transform: uppercase;
-      margin-bottom: 22px;
-    }
-
-    .divider {
-      width: 48px;
-      height: 2px;
-      background: rgba(255,255,255,0.5);
-      margin: 0 auto 16px;
-      border-radius: 2px;
-    }
-
-    /* Frosted badge */
-    .badge {
-      position: absolute;
-      top: 22px;
-      right: 22px;
+      top: 42px; left: 0; right: 0;
       z-index: 5;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 50px;
-      padding: 6px 16px;
-      font-size: 0.65rem;
-      color: #fff;
-      letter-spacing: 3px;
+      text-align: center;
+      padding: 0 90px;
+    }
+    .tagline {
+      font-size: 1.1rem; font-weight: 800;
+      color: #fff; letter-spacing: 5px;
       text-transform: uppercase;
-      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      margin-bottom: 12px;
+    }
+    .drink-name {
+      font-family: 'Pacifico', cursive;
+      font-size: 3.5rem; line-height: 1.15;
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.12), 0 6px 24px rgba(0,0,0,0.22);
     }
 
-    /* Logo stamp */
-    .logo-stamp {
+    /* Drink SVG area */
+    .drink-wrap {
       position: absolute;
-      bottom: 18px;
-      left: 20px;
-      z-index: 6;
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      border: 2px solid rgba(255,255,255,0.3);
+      bottom: 122px;
+      left: 50%; transform: translateX(-50%);
+      z-index: 4;
+    }
+    .drink-wrap svg {
+      filter: drop-shadow(0 28px 50px rgba(0,0,0,0.55));
     }
 
-    /* Slogan */
-    .slogan {
-      font-size: 0.78rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: rgba(255,255,255,0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    .slogan .heart {
-      color: #ff4d6d;
-      font-size: 1rem;
-      animation: pulse 1.4s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50%       { transform: scale(1.3); }
-    }
-
-    /* Bottom shimmer bar */
-    .shimmer {
+    /* Bottom bar */
+    .bottom-bar {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 3px;
-      z-index: 5;
+      height: 115px; z-index: 6;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(255,255,255,0.18);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 38px;
+    }
+    .logo-circle {
+      width: 88px; height: 88px;
+      border-radius: 50%; object-fit: cover;
+      border: 2.5px solid rgba(255,255,255,0.5);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+    }
+    .love-side { text-align: right; }
+    .shop-label {
+      font-size: 0.68rem; letter-spacing: 4px;
+      color: rgba(255,255,255,0.55); text-transform: uppercase;
+    }
+    .love-line {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.45rem; color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .heart {
+      color: #ff3d5a; display: inline-block;
+      animation: beat 1.4s ease-in-out infinite;
+    }
+    @keyframes beat {
+      0%,100%{transform:scale(1)} 50%{transform:scale(1.4)}
     }
 
-    /* ═══════════════════════════════
-       DRINK THEMES
-    ═══════════════════════════════ */
+    /* Themes */
+    #p1 .poster-bg { background: linear-gradient(172deg,#89dcf8 0%,#ffd580 40%,#ff8c00 72%,#c44d00 100%); }
+    #p1 .drink-name { color: #ff5200; }
 
-    /* 1 – Passion Cream */
-    #p1 .bg { background: linear-gradient(145deg, #f9a825 0%, #e65100 45%, #bf360c 100%); }
-    #p1 .deco.d1 { width:320px; height:320px; top:-80px; left:-80px; background:#ffcc02; }
-    #p1 .deco.d2 { width:200px; height:200px; bottom:-40px; right:-40px; background:#fff; }
-    #p1 .shimmer { background: linear-gradient(90deg, #ffcc02, #ff6d00, #ffcc02); }
+    #p2 .poster-bg { background: linear-gradient(172deg,#ccfad4 0%,#62d07a 38%,#28a042 68%,#085820 100%); }
+    #p2 .drink-name { color: #006622; }
 
-    /* 2 – Green Tea with Milk */
-    #p2 .bg { background: linear-gradient(145deg, #aed581 0%, #43a047 45%, #1b5e20 100%); }
-    #p2 .deco.d1 { width:280px; height:280px; top:-60px; right:-60px; background:#ccff90; }
-    #p2 .deco.d2 { width:180px; height:180px; bottom:-40px; left:-20px; background:#fff; }
-    #p2 .shimmer { background: linear-gradient(90deg, #ccff90, #43a047, #ccff90); }
+    #p3 .poster-bg { background: linear-gradient(172deg,#fcecd8 0%,#ddb06a 38%,#a06218 68%,#5a3000 100%); }
+    #p3 .drink-name { color: #783400; }
 
-    /* 3 – Sweet & Sour Tamarind Tea */
-    #p3 .bg { background: linear-gradient(145deg, #d4a355 0%, #8d4e1e 50%, #3e1f00 100%); }
-    #p3 .deco.d1 { width:300px; height:300px; top:-70px; left:-50px; background:#ffe0b2; }
-    #p3 .deco.d2 { width:160px; height:160px; bottom:-30px; right:-20px; background:#bf8040; }
-    #p3 .shimmer { background: linear-gradient(90deg, #d4a355, #8d4e1e, #d4a355); }
+    #p4 .poster-bg { background: linear-gradient(172deg,#fffce6 0%,#ffe445 38%,#ffa500 68%,#cc5500 100%); }
+    #p4 .drink-name { color: #c24800; }
 
-    /* 4 – Passion Soda */
-    #p4 .bg { background: linear-gradient(145deg, #ffe57f 0%, #ff8f00 40%, #e65100 100%); }
-    #p4 .deco.d1 { width:260px; height:260px; top:-50px; right:-50px; background:#fffde7; }
-    #p4 .deco.d2 { width:200px; height:200px; bottom:-60px; left:-30px; background:#ffca28; }
-    #p4 .shimmer { background: linear-gradient(90deg, #ffe57f, #ff8f00, #ffe57f); }
+    #p5 .poster-bg { background: linear-gradient(172deg,#ffe6ea 0%,#ff8888 38%,#cc1c1c 68%,#720000 100%); }
+    #p5 .drink-name { color: #b80000; }
 
-    /* 5 – Red Lemon Tea */
-    #p5 .bg { background: linear-gradient(145deg, #ef9a9a 0%, #c62828 50%, #7f0000 100%); }
-    #p5 .deco.d1 { width:300px; height:300px; top:-80px; left:-60px; background:#ffcdd2; }
-    #p5 .deco.d2 { width:180px; height:180px; bottom:-40px; right:-30px; background:#ff1744; }
-    #p5 .shimmer { background: linear-gradient(90deg, #ff8a80, #c62828, #ff8a80); }
+    #p6 .poster-bg { background: linear-gradient(172deg,#f4e0ff 0%,#cc88ee 38%,#8820cc 68%,#3a0076 100%); }
+    #p6 .drink-name { color: #6000b8; }
 
-    /* 6 – Taro with Milk */
-    #p6 .bg { background: linear-gradient(145deg, #e1bee7 0%, #8e24aa 50%, #4a148c 100%); }
-    #p6 .deco.d1 { width:280px; height:280px; top:-60px; right:-60px; background:#f3e5f5; }
-    #p6 .deco.d2 { width:200px; height:200px; bottom:-50px; left:-30px; background:#ce93d8; }
-    #p6 .shimmer { background: linear-gradient(90deg, #e1bee7, #8e24aa, #e1bee7); }
-
-    /* 7 – Iced Coffee with Milk */
-    #p7 .bg { background: linear-gradient(145deg, #a1887f 0%, #4e342e 50%, #1a0a00 100%); }
-    #p7 .deco.d1 { width:300px; height:300px; top:-70px; left:-60px; background:#d7ccc8; }
-    #p7 .deco.d2 { width:200px; height:200px; bottom:-50px; right:-30px; background:#795548; }
-    #p7 .shimmer { background: linear-gradient(90deg, #a1887f, #4e342e, #a1887f); }
-
-    /* print helper */
-    @media print {
-      body { background: white; padding: 0; }
-      .page-title, .brand-title, .hint { display: none; }
-      .grid { display: block; }
-      .poster { width: 100vw; height: 100vw; border-radius: 0; margin: 0; page-break-after: always; box-shadow: none; }
-    }
+    #p7 .poster-bg { background: linear-gradient(172deg,#f0dcc8 0%,#b07644 38%,#6c3410 68%,#260a00 100%); }
+    #p7 .drink-name { color: #5a2200; }
   </style>
 </head>
 <body>
+<div class="grid">
 
-  <p class="page-title">Menu Collection</p>
-  <h1 class="brand-title">Tata Mama Coffee</h1>
-  <p class="hint">Click any poster to save • Right-click → Save Image As</p>
+<!-- ════════════════════════════════════════════
+     ① PASSION CREAM
+════════════════════════════════════════════ -->
+<div class="poster" id="p1">
+  <div class="poster-bg"></div>
 
-  <div class="grid">
+  <!-- Left leaf -->
+  <svg class="leaf-tl" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#3aaa50"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#1d6e28" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q152,118 180,104" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,192 Q148,172 175,155" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q68,118 40,104" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#2e9640" opacity="0.82" transform="rotate(-17,58,132)"/>
+    <path d="M58,5 Q57,82 64,260" stroke="#1a6826" stroke-width="3" fill="none" opacity="0.5" transform="rotate(-17,58,132)"/>
+  </svg>
 
-    <!-- 1. Passion Cream -->
-    <div class="poster" id="p1">
-      <div class="bg"></div>
-      <div class="deco d1"></div>
-      <div class="deco d2"></div>
-      <svg class="daisy" style="top:12px;left:20px;width:90px" viewBox="0 0 100 100">
-        <g transform="translate(50,50)">
-          <circle r="10" fill="#fff"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
-        </g>
-      </svg>
-      <div class="badge">Signature</div>
-      <div class="cup-area"><div class="cup">🧋</div></div>
-      <div class="content">
-        <p class="drink-label">Creamy Blend</p>
-        <h2 class="drink-name">Passion Cream</h2>
-        <p class="drink-sub">Rich &amp; Velvety Smooth</p>
-        <div class="divider"></div>
-        <p class="slogan"><span class="heart">♥</span> Made with Love <span class="heart">♥</span></p>
-      </div>
-      <img class="logo-stamp" src="logo.png" alt="Tata Mama Coffee">
-      <div class="shimmer"></div>
-    </div>
+  <!-- Right leaf (mirrored) -->
+  <svg class="leaf-tr" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#3aaa50"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#1d6e28" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q152,118 180,104" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,192 Q148,172 175,155" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#2e9640" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
 
-    <!-- 2. Green Tea with Milk -->
-    <div class="poster" id="p2">
-      <div class="bg"></div>
-      <div class="deco d1"></div>
-      <div class="deco d2"></div>
-      <svg class="daisy" style="bottom:160px;right:18px;width:70px" viewBox="0 0 100 100">
-        <g transform="translate(50,50)">
-          <circle r="10" fill="#fff"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
-        </g>
-      </svg>
-      <div class="badge">Fresh Pick</div>
-      <div class="cup-area"><div class="cup">🍵</div></div>
-      <div class="content">
-        <p class="drink-label">Matcha Series</p>
-        <h2 class="drink-name">Green Tea<br>with Milk</h2>
-        <p class="drink-sub">Fresh &amp; Naturally Sweet</p>
-        <div class="divider"></div>
-        <p class="slogan"><span class="heart">♥</span> Made with Love <span class="heart">♥</span></p>
-      </div>
-      <img class="logo-stamp" src="logo.png" alt="Tata Mama Coffee">
-      <div class="shimmer"></div>
-    </div>
-
-    <!-- 3. Sweet & Sour Tamarind Tea -->
-    <div class="poster" id="p3">
-      <div class="bg"></div>
-      <div class="deco d1"></div>
-      <div class="deco d2"></div>
-      <svg class="daisy" style="top:10px;right:24px;width:80px" viewBox="0 0 100 100">
-        <g transform="translate(50,50)">
-          <circle r="10" fill="#fff"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
-        </g>
-      </svg>
-      <div class="badge">Fan Favorite</div>
-      <div class="cup-area"><div class="cup">🫖</div></div>
-      <div class="content">
-        <p class="drink-label">Exotic Blend</p>
-        <h2 class="drink-name">Sweet &amp; Sour<br>Tamarind Tea</h2>
-        <p class="drink-sub">Tropical Tangy Twist</p>
-        <div class="divider"></div>
-        <p class="slogan"><span class="heart">♥</span> Made with Love <span class="heart">♥</span></p>
-      </div>
-      <img class="logo-stamp" src="logo.png" alt="Tata Mama Coffee">
-      <div class="shimmer"></div>
-    </div>
-
-    <!-- 4. Passion Soda -->
-    <div class="poster" id="p4">
-      <div class="bg"></div>
-      <div class="deco d1"></div>
-      <div class="deco d2"></div>
-      <svg class="daisy" style="bottom:170px;left:16px;width:65px" viewBox="0 0 100 100">
-        <g transform="translate(50,50)">
-          <circle r="10" fill="#fff"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
-        </g>
-      </svg>
-      <div class="badge">Refreshing</div>
-      <div class="cup-area"><div class="cup">🥤</div></div>
-      <div class="content">
-        <p class="drink-label">Soda Series</p>
-        <h2 class="drink-name">Passion Soda</h2>
-        <p class="drink-sub">Fizzy &amp; Fruity Burst</p>
-        <div class="divider"></div>
-        <p class="slogan"><span class="heart">♥</span> Made with Love <span class="heart">♥</span></p>
-      </div>
-      <img class="logo-stamp" src="logo.png" alt="Tata Mama Coffee">
-      <div class="shimmer"></div>
-    </div>
-
-    <!-- 5. Red Lemon Tea -->
-    <div class="poster" id="p5">
-      <div class="bg"></div>
-      <div class="deco d1"></div>
-      <div class="deco d2"></div>
-      <svg class="daisy" style="top:14px;left:18px;width:75px" viewBox="0 0 100 100">
-        <g transform="translate(50,50)">
-          <circle r="10" fill="#fff"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
-        </g>
-      </svg>
-      <div class="badge">Best Seller</div>
-      <div class="cup-area"><div class="cup">🍹</div></div>
-      <div class="content">
-        <p class="drink-label">Tea Collection</p>
-        <h2 class="drink-name">Red Lemon Tea</h2>
-        <p class="drink-sub">Zesty &amp; Bold</p>
-        <div class="divider"></div>
-        <p class="slogan"><span class="heart">♥</span> Made with Love <span class="heart">♥</span></p>
-      </div>
-      <img class="logo-stamp" src="logo.png" alt="Tata Mama Coffee">
-      <div class="shimmer"></div>
-    </div>
-
-    <!-- 6. Taro with Milk -->
-    <div class="poster" id="p6">
-      <div class="bg"></div>
-      <div class="deco d1"></div>
-      <div class="deco d2"></div>
-      <svg class="daisy" style="top:12px;right:20px;width:85px" viewBox="0 0 100 100">
-        <g transform="translate(50,50)">
-          <circle r="10" fill="#fff"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
-        </g>
-      </svg>
-      <div class="badge">Popular</div>
-      <div class="cup-area"><div class="cup">🧋</div></div>
-      <div class="content">
-        <p class="drink-label">Milk Tea Series</p>
-        <h2 class="drink-name">Taro<br>with Milk</h2>
-        <p class="drink-sub">Creamy &amp; Dreamy</p>
-        <div class="divider"></div>
-        <p class="slogan"><span class="heart">♥</span> Made with Love <span class="heart">♥</span></p>
-      </div>
-      <img class="logo-stamp" src="logo.png" alt="Tata Mama Coffee">
-      <div class="shimmer"></div>
-    </div>
-
-    <!-- 7. Iced Coffee with Milk -->
-    <div class="poster" id="p7">
-      <div class="bg"></div>
-      <div class="deco d1"></div>
-      <div class="deco d2"></div>
-      <svg class="daisy" style="bottom:175px;right:20px;width:70px;opacity:0.15" viewBox="0 0 100 100">
-        <g transform="translate(50,50)">
-          <circle r="10" fill="#fff"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
-          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
-        </g>
-      </svg>
-      <div class="badge">Classic</div>
-      <div class="cup-area"><div class="cup">☕</div></div>
-      <div class="content">
-        <p class="drink-label">Coffee Series</p>
-        <h2 class="drink-name">Iced Coffee<br>with Milk</h2>
-        <p class="drink-sub">Bold &amp; Smooth</p>
-        <div class="divider"></div>
-        <p class="slogan"><span class="heart">♥</span> Made with Love <span class="heart">♥</span></p>
-      </div>
-      <img class="logo-stamp" src="logo.png" alt="Tata Mama Coffee">
-      <div class="shimmer"></div>
-    </div>
-
+  <div class="top-content">
+    <p class="tagline">Stay Cool &amp; Drink</p>
+    <h2 class="drink-name">Passion Cream</h2>
   </div>
 
-  <p style="text-align:center;color:rgba(255,255,255,0.2);font-size:0.72rem;margin-top:56px;letter-spacing:2px;">
-    TATA MAMA COFFEE &nbsp;·&nbsp; RIGHT-CLICK EACH POSTER → SAVE IMAGE AS
-  </p>
+  <!-- PASSION CREAM drink SVG -->
+  <div class="drink-wrap">
+    <svg width="370" height="510" viewBox="0 0 370 510" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="cup1"><path d="M28,62 L58,468 Q185,492 312,468 L342,62 Z"/></clipPath>
+        <linearGradient id="liq1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fff8e6"/>
+          <stop offset="14%" stop-color="#ffe5a0"/>
+          <stop offset="38%" stop-color="#ffb84d"/>
+          <stop offset="68%" stop-color="#ff8000"/>
+          <stop offset="100%" stop-color="#c84a00"/>
+        </linearGradient>
+        <linearGradient id="cupshine1" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.32)"/>
+          <stop offset="18%" stop-color="rgba(255,255,255,0.10)"/>
+          <stop offset="82%" stop-color="rgba(255,255,255,0.04)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.24)"/>
+        </linearGradient>
+        <radialGradient id="shadow1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(0,0,0,0.35)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+        </radialGradient>
+      </defs>
 
+      <!-- Cup shadow -->
+      <ellipse cx="185" cy="490" rx="118" ry="16" fill="url(#shadow1)"/>
+
+      <!-- Liquid -->
+      <g clip-path="url(#cup1)">
+        <rect x="0" y="0" width="370" height="510" fill="url(#liq1)"/>
+        <!-- Ice cubes -->
+        <rect x="62" y="320" width="72" height="58" rx="8" fill="rgba(205,238,255,0.48)" transform="rotate(-13,98,349)" stroke="rgba(180,225,255,0.4)" stroke-width="1.5"/>
+        <rect x="158" y="300" width="66" height="54" rx="8" fill="rgba(215,242,255,0.44)" transform="rotate(8,191,327)" stroke="rgba(180,225,255,0.38)" stroke-width="1.5"/>
+        <rect x="218" y="326" width="68" height="56" rx="8" fill="rgba(200,235,255,0.46)" transform="rotate(-6,252,354)" stroke="rgba(180,225,255,0.38)" stroke-width="1.5"/>
+        <!-- Ice highlights -->
+        <rect x="62" y="320" width="18" height="58" rx="5" fill="rgba(255,255,255,0.28)" transform="rotate(-13,98,349)"/>
+        <rect x="158" y="300" width="16" height="54" rx="5" fill="rgba(255,255,255,0.24)" transform="rotate(8,191,327)"/>
+        <!-- Cream layer at top -->
+        <ellipse cx="185" cy="115" rx="138" ry="44" fill="rgba(255,252,238,0.92)"/>
+        <ellipse cx="130" cy="97" rx="58" ry="30" fill="rgba(255,255,255,0.82)"/>
+        <ellipse cx="220" cy="93" rx="52" ry="28" fill="rgba(255,255,255,0.78)"/>
+        <ellipse cx="178" cy="90" rx="44" ry="22" fill="rgba(255,255,255,0.88)"/>
+        <!-- Cup shine overlay -->
+        <rect x="0" y="0" width="370" height="510" fill="url(#cupshine1)"/>
+      </g>
+
+      <!-- Cup outline -->
+      <path d="M28,62 L58,468 Q185,492 312,468 L342,62" fill="none" stroke="rgba(200,222,242,0.5)" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- Left reflection -->
+      <path d="M36,70 L64,460" stroke="rgba(255,255,255,0.42)" stroke-width="13" stroke-linecap="round" fill="none" clip-path="url(#cup1)"/>
+      <path d="M50,66 L78,455" stroke="rgba(255,255,255,0.18)" stroke-width="5" stroke-linecap="round" fill="none" clip-path="url(#cup1)"/>
+      <!-- Condensation -->
+      <ellipse cx="82" cy="198" rx="4" ry="7" fill="rgba(255,255,255,0.46)"/>
+      <ellipse cx="288" cy="238" rx="3.5" ry="6" fill="rgba(255,255,255,0.42)"/>
+      <ellipse cx="100" cy="342" rx="3" ry="5" fill="rgba(255,255,255,0.38)"/>
+      <ellipse cx="300" cy="180" rx="3" ry="5.5" fill="rgba(255,255,255,0.42)"/>
+      <ellipse cx="72" cy="285" rx="2.5" ry="4" fill="rgba(255,255,255,0.32)"/>
+      <path d="M82,205 Q81,232 84,265" stroke="rgba(255,255,255,0.28)" stroke-width="2" fill="none"/>
+
+      <!-- Lid -->
+      <ellipse cx="185" cy="62" rx="157" ry="26" fill="rgba(220,238,255,0.38)" stroke="rgba(200,222,240,0.52)" stroke-width="2"/>
+      <path d="M28,62 Q185,38 342,62" fill="rgba(255,255,255,0.06)" stroke="rgba(200,222,240,0.28)" stroke-width="1.5"/>
+      <ellipse cx="185" cy="50" rx="25" ry="9" fill="rgba(200,220,242,0.52)" stroke="rgba(180,210,238,0.5)" stroke-width="1.5"/>
+
+      <!-- Straw -->
+      <rect x="218" y="-35" width="22" height="330" rx="11" fill="#ff8c00" transform="rotate(4,229,130)"/>
+      <rect x="218" y="-35" width="6" height="330" rx="3" fill="rgba(255,255,255,0.38)" transform="rotate(4,229,130)"/>
+
+      <!-- Passion fruit garnish -->
+      <circle cx="72" cy="132" r="30" fill="#ff8c00"/>
+      <circle cx="72" cy="132" r="23" fill="#ffaa00"/>
+      <circle cx="72" cy="132" r="17" fill="#ffd84f"/>
+      <ellipse cx="65" cy="126" rx="3.5" ry="5.5" fill="#5d3500" transform="rotate(-15,65,126)"/>
+      <ellipse cx="79" cy="124" rx="3.5" ry="5.5" fill="#5d3500" transform="rotate(12,79,124)"/>
+      <ellipse cx="72" cy="137" rx="3.5" ry="5.5" fill="#5d3500"/>
+      <ellipse cx="61" cy="137" rx="3" ry="5" fill="#5d3500" transform="rotate(-22,61,137)"/>
+      <ellipse cx="82" cy="136" rx="3" ry="5" fill="#5d3500" transform="rotate(18,82,136)"/>
+      <circle cx="72" cy="118" r="4" fill="rgba(255,255,255,0.3)"/>
+
+      <!-- Base splash -->
+      <ellipse cx="185" cy="476" rx="148" ry="22" fill="rgba(255,160,50,0.22)"/>
+      <ellipse cx="185" cy="476" rx="108" ry="14" fill="rgba(255,120,20,0.18)"/>
+    </svg>
+  </div>
+
+  <div class="bottom-bar">
+    <img class="logo-circle" src="logo.png" alt="Logo">
+    <div class="love-side">
+      <p class="shop-label">Tata Mama Coffee</p>
+      <p class="love-line"><span class="heart">♥</span> Made with Love</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     ② GREEN TEA WITH MILK
+════════════════════════════════════════════ -->
+<div class="poster" id="p2">
+  <div class="poster-bg"></div>
+
+  <svg class="leaf-tl" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#2e8040"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#185424" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#226030" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q152,118 180,104" stroke="#226030" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,192 Q148,172 175,155" stroke="#226030" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#226030" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q68,118 40,104" stroke="#226030" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#246834" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
+  <svg class="leaf-tr" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#2e8040"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#185424" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#226030" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q152,118 180,104" stroke="#226030" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#226030" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#246834" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
+
+  <div class="top-content">
+    <p class="tagline">Sip Fresh Every Day</p>
+    <h2 class="drink-name">Green Tea<br>with Milk</h2>
+  </div>
+
+  <div class="drink-wrap">
+    <svg width="370" height="510" viewBox="0 0 370 510" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="cup2"><path d="M28,62 L58,468 Q185,492 312,468 L342,62 Z"/></clipPath>
+        <linearGradient id="liq2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f0fff4"/>
+          <stop offset="16%" stop-color="#d4f0da"/>
+          <stop offset="42%" stop-color="#68c878"/>
+          <stop offset="72%" stop-color="#229e3a"/>
+          <stop offset="100%" stop-color="#0a5c1e"/>
+        </linearGradient>
+        <linearGradient id="cupshine2" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.32)"/>
+          <stop offset="18%" stop-color="rgba(255,255,255,0.10)"/>
+          <stop offset="82%" stop-color="rgba(255,255,255,0.04)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.24)"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="185" cy="490" rx="118" ry="16" fill="rgba(0,0,0,0.3)"/>
+      <g clip-path="url(#cup2)">
+        <rect x="0" y="0" width="370" height="510" fill="url(#liq2)"/>
+        <!-- Ice -->
+        <rect x="64" y="315" width="70" height="56" rx="8" fill="rgba(210,240,225,0.48)" transform="rotate(-11,99,343)" stroke="rgba(180,230,200,0.4)" stroke-width="1.5"/>
+        <rect x="160" y="298" width="64" height="52" rx="8" fill="rgba(220,245,230,0.44)" transform="rotate(9,192,324)" stroke="rgba(180,230,200,0.38)" stroke-width="1.5"/>
+        <rect x="215" y="322" width="66" height="54" rx="8" fill="rgba(205,238,220,0.46)" transform="rotate(-7,248,349)" stroke="rgba(180,230,200,0.38)" stroke-width="1.5"/>
+        <rect x="64" y="315" width="17" height="56" rx="5" fill="rgba(255,255,255,0.28)" transform="rotate(-11,99,343)"/>
+        <!-- Milk layer (top) -->
+        <ellipse cx="185" cy="112" rx="140" ry="46" fill="rgba(245,255,248,0.94)"/>
+        <ellipse cx="130" cy="94" rx="60" ry="32" fill="rgba(255,255,255,0.85)"/>
+        <ellipse cx="225" cy="90" rx="54" ry="28" fill="rgba(255,255,255,0.80)"/>
+        <ellipse cx="180" cy="88" rx="46" ry="24" fill="rgba(255,255,255,0.90)"/>
+        <rect x="0" y="0" width="370" height="510" fill="url(#cupshine2)"/>
+      </g>
+      <path d="M28,62 L58,468 Q185,492 312,468 L342,62" fill="none" stroke="rgba(200,230,215,0.5)" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M36,70 L64,460" stroke="rgba(255,255,255,0.42)" stroke-width="13" stroke-linecap="round" fill="none" clip-path="url(#cup2)"/>
+      <ellipse cx="82" cy="198" rx="4" ry="7" fill="rgba(255,255,255,0.46)"/>
+      <ellipse cx="290" cy="240" rx="3.5" ry="6" fill="rgba(255,255,255,0.42)"/>
+      <ellipse cx="96" cy="340" rx="3" ry="5" fill="rgba(255,255,255,0.38)"/>
+      <ellipse cx="298" cy="182" rx="3" ry="5.5" fill="rgba(255,255,255,0.42)"/>
+      <ellipse cx="185" cy="62" rx="157" ry="26" fill="rgba(220,245,228,0.38)" stroke="rgba(200,230,210,0.52)" stroke-width="2"/>
+      <path d="M28,62 Q185,38 342,62" fill="rgba(255,255,255,0.06)" stroke="rgba(200,228,210,0.28)" stroke-width="1.5"/>
+      <ellipse cx="185" cy="50" rx="25" ry="9" fill="rgba(200,235,210,0.52)" stroke="rgba(180,218,195,0.5)" stroke-width="1.5"/>
+      <!-- Green straw -->
+      <rect x="215" y="-35" width="22" height="330" rx="11" fill="#33cc55" transform="rotate(4,226,130)"/>
+      <rect x="215" y="-35" width="6" height="330" rx="3" fill="rgba(255,255,255,0.38)" transform="rotate(4,226,130)"/>
+      <!-- Matcha leaves garnish -->
+      <ellipse cx="78" cy="130" rx="32" ry="14" fill="#2d8040" transform="rotate(-20,78,130)"/>
+      <path d="M78,130 Q98,118 108,110" stroke="#1a5228" stroke-width="2" fill="none"/>
+      <ellipse cx="82" cy="145" rx="26" ry="11" fill="#3aaa50" transform="rotate(15,82,145)"/>
+      <circle cx="90" cy="132" r="6" fill="rgba(255,255,255,0.3)"/>
+      <ellipse cx="185" cy="476" rx="148" ry="22" fill="rgba(60,180,90,0.2)"/>
+    </svg>
+  </div>
+
+  <div class="bottom-bar">
+    <img class="logo-circle" src="logo.png" alt="Logo">
+    <div class="love-side">
+      <p class="shop-label">Tata Mama Coffee</p>
+      <p class="love-line"><span class="heart">♥</span> Made with Love</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     ③ SWEET & SOUR TAMARIND TEA
+════════════════════════════════════════════ -->
+<div class="poster" id="p3">
+  <div class="poster-bg"></div>
+
+  <svg class="leaf-tl" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#4a8c38"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#2a5c1e" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#386828" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q152,118 180,104" stroke="#386828" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#386828" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q68,118 40,104" stroke="#386828" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#3a7830" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
+  <svg class="leaf-tr" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#4a8c38"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#2a5c1e" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#386828" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#386828" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#3a7830" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
+
+  <div class="top-content">
+    <p class="tagline">Taste the Tropics</p>
+    <h2 class="drink-name">Sweet &amp; Sour<br>Tamarind Tea</h2>
+  </div>
+
+  <div class="drink-wrap">
+    <svg width="370" height="510" viewBox="0 0 370 510" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="cup3"><path d="M28,62 L58,468 Q185,492 312,468 L342,62 Z"/></clipPath>
+        <linearGradient id="liq3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f5e8d0"/>
+          <stop offset="18%" stop-color="#e0b870"/>
+          <stop offset="45%" stop-color="#b87820"/>
+          <stop offset="75%" stop-color="#7a4800"/>
+          <stop offset="100%" stop-color="#3e2000"/>
+        </linearGradient>
+        <linearGradient id="cupshine3" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.32)"/>
+          <stop offset="18%" stop-color="rgba(255,255,255,0.10)"/>
+          <stop offset="82%" stop-color="rgba(255,255,255,0.04)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.24)"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="185" cy="490" rx="118" ry="16" fill="rgba(0,0,0,0.3)"/>
+      <g clip-path="url(#cup3)">
+        <rect x="0" y="0" width="370" height="510" fill="url(#liq3)"/>
+        <!-- Ice -->
+        <rect x="62" y="318" width="70" height="56" rx="8" fill="rgba(210,235,255,0.42)" transform="rotate(-13,97,346)" stroke="rgba(180,220,255,0.38)" stroke-width="1.5"/>
+        <rect x="160" y="298" width="64" height="52" rx="8" fill="rgba(215,238,255,0.40)" transform="rotate(7,192,324)" stroke="rgba(180,220,255,0.35)" stroke-width="1.5"/>
+        <rect x="216" y="320" width="66" height="54" rx="8" fill="rgba(205,232,255,0.42)" transform="rotate(-7,249,347)" stroke="rgba(180,220,255,0.35)" stroke-width="1.5"/>
+        <rect x="62" y="318" width="17" height="56" rx="5" fill="rgba(255,255,255,0.26)" transform="rotate(-13,97,346)"/>
+        <rect x="0" y="0" width="370" height="510" fill="url(#cupshine3)"/>
+      </g>
+      <path d="M28,62 L58,468 Q185,492 312,468 L342,62" fill="none" stroke="rgba(210,195,170,0.5)" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M36,70 L64,460" stroke="rgba(255,255,255,0.42)" stroke-width="13" stroke-linecap="round" fill="none" clip-path="url(#cup3)"/>
+      <ellipse cx="82" cy="198" rx="4" ry="7" fill="rgba(255,255,255,0.46)"/>
+      <ellipse cx="290" cy="240" rx="3.5" ry="6" fill="rgba(255,255,255,0.42)"/>
+      <ellipse cx="96" cy="340" rx="3" ry="5" fill="rgba(255,255,255,0.38)"/>
+      <ellipse cx="185" cy="62" rx="157" ry="26" fill="rgba(228,210,185,0.38)" stroke="rgba(210,192,165,0.52)" stroke-width="2"/>
+      <path d="M28,62 Q185,38 342,62" fill="rgba(255,255,255,0.06)" stroke="rgba(210,192,165,0.28)" stroke-width="1.5"/>
+      <ellipse cx="185" cy="50" rx="25" ry="9" fill="rgba(215,195,168,0.52)" stroke="rgba(195,175,148,0.5)" stroke-width="1.5"/>
+      <!-- Brown straw -->
+      <rect x="215" y="-35" width="22" height="330" rx="11" fill="#8b4513" transform="rotate(4,226,130)"/>
+      <rect x="215" y="-35" width="6" height="330" rx="3" fill="rgba(255,255,255,0.35)" transform="rotate(4,226,130)"/>
+      <!-- Tamarind pod garnish -->
+      <path d="M60,145 Q75,120 95,130 Q112,138 105,155 Q98,170 78,168 Q58,162 60,145Z" fill="#6b3800"/>
+      <path d="M60,145 Q75,120 95,130 Q112,138 105,155 Q98,170 78,168" fill="none" stroke="#4a2200" stroke-width="2"/>
+      <ellipse cx="82" cy="148" rx="10" ry="8" fill="#8b4513"/>
+      <ellipse cx="82" cy="148" rx="7" ry="5.5" fill="#b05c18"/>
+      <!-- Lemon slice -->
+      <circle cx="292" cy="130" r="28" fill="#ffe566"/>
+      <circle cx="292" cy="130" r="22" fill="#ffd700"/>
+      <line x1="292" y1="108" x2="292" y2="152" stroke="rgba(180,130,0,0.35)" stroke-width="1.5"/>
+      <line x1="270" y1="130" x2="314" y2="130" stroke="rgba(180,130,0,0.35)" stroke-width="1.5"/>
+      <line x1="276" y1="114" x2="308" y2="146" stroke="rgba(180,130,0,0.25)" stroke-width="1.5"/>
+      <line x1="308" y1="114" x2="276" y2="146" stroke="rgba(180,130,0,0.25)" stroke-width="1.5"/>
+      <circle cx="292" cy="130" r="7" fill="rgba(255,240,150,0.7)"/>
+      <ellipse cx="185" cy="476" rx="148" ry="22" fill="rgba(160,110,40,0.22)"/>
+    </svg>
+  </div>
+
+  <div class="bottom-bar">
+    <img class="logo-circle" src="logo.png" alt="Logo">
+    <div class="love-side">
+      <p class="shop-label">Tata Mama Coffee</p>
+      <p class="love-line"><span class="heart">♥</span> Made with Love</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     ④ PASSION SODA
+════════════════════════════════════════════ -->
+<div class="poster" id="p4">
+  <div class="poster-bg"></div>
+
+  <svg class="leaf-tl" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#3aaa50"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#1d6e28" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q152,118 180,104" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q68,118 40,104" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#2e9640" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
+  <svg class="leaf-tr" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#3aaa50"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#1d6e28" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#2e9640" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
+
+  <div class="top-content">
+    <p class="tagline">Refresh Your Day</p>
+    <h2 class="drink-name">Passion Soda</h2>
+  </div>
+
+  <div class="drink-wrap">
+    <svg width="370" height="510" viewBox="0 0 370 510" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="cup4"><path d="M28,62 L58,468 Q185,492 312,468 L342,62 Z"/></clipPath>
+        <linearGradient id="liq4" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fffde0"/>
+          <stop offset="20%" stop-color="#ffe566"/>
+          <stop offset="50%" stop-color="#ffaa00"/>
+          <stop offset="80%" stop-color="#ff7700"/>
+          <stop offset="100%" stop-color="#cc4400"/>
+        </linearGradient>
+        <linearGradient id="cupshine4" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.32)"/>
+          <stop offset="18%" stop-color="rgba(255,255,255,0.10)"/>
+          <stop offset="82%" stop-color="rgba(255,255,255,0.04)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.24)"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="185" cy="490" rx="118" ry="16" fill="rgba(0,0,0,0.3)"/>
+      <g clip-path="url(#cup4)">
+        <rect x="0" y="0" width="370" height="510" fill="url(#liq4)"/>
+        <!-- Soda bubbles rising -->
+        <circle cx="100" cy="420" r="6" fill="rgba(255,255,255,0.32)"/>
+        <circle cx="140" cy="390" r="5" fill="rgba(255,255,255,0.28)"/>
+        <circle cx="185" cy="370" r="7" fill="rgba(255,255,255,0.30)"/>
+        <circle cx="230" cy="395" r="5" fill="rgba(255,255,255,0.28)"/>
+        <circle cx="268" cy="410" r="6" fill="rgba(255,255,255,0.28)"/>
+        <circle cx="118" cy="340" r="4" fill="rgba(255,255,255,0.24)"/>
+        <circle cx="210" cy="320" r="5" fill="rgba(255,255,255,0.24)"/>
+        <circle cx="155" cy="300" r="4" fill="rgba(255,255,255,0.22)"/>
+        <circle cx="245" cy="280" r="4" fill="rgba(255,255,255,0.20)"/>
+        <circle cx="130" cy="250" r="3" fill="rgba(255,255,255,0.18)"/>
+        <circle cx="200" cy="230" r="4" fill="rgba(255,255,255,0.18)"/>
+        <!-- Ice -->
+        <rect x="64" y="316" width="70" height="56" rx="8" fill="rgba(210,240,255,0.44)" transform="rotate(-11,99,344)" stroke="rgba(180,225,255,0.38)" stroke-width="1.5"/>
+        <rect x="160" y="296" width="64" height="52" rx="8" fill="rgba(215,242,255,0.40)" transform="rotate(8,192,322)" stroke="rgba(180,225,255,0.35)" stroke-width="1.5"/>
+        <rect x="216" y="318" width="66" height="54" rx="8" fill="rgba(205,238,255,0.42)" transform="rotate(-6,249,345)" stroke="rgba(180,225,255,0.35)" stroke-width="1.5"/>
+        <rect x="64" y="316" width="17" height="56" rx="5" fill="rgba(255,255,255,0.26)" transform="rotate(-11,99,344)"/>
+        <rect x="0" y="0" width="370" height="510" fill="url(#cupshine4)"/>
+      </g>
+      <path d="M28,62 L58,468 Q185,492 312,468 L342,62" fill="none" stroke="rgba(210,200,170,0.5)" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M36,70 L64,460" stroke="rgba(255,255,255,0.42)" stroke-width="13" stroke-linecap="round" fill="none" clip-path="url(#cup4)"/>
+      <ellipse cx="82" cy="198" rx="4" ry="7" fill="rgba(255,255,255,0.46)"/>
+      <ellipse cx="290" cy="240" rx="3.5" ry="6" fill="rgba(255,255,255,0.42)"/>
+      <ellipse cx="96" cy="340" rx="3" ry="5" fill="rgba(255,255,255,0.38)"/>
+      <ellipse cx="185" cy="62" rx="157" ry="26" fill="rgba(228,220,180,0.38)" stroke="rgba(210,200,160,0.52)" stroke-width="2"/>
+      <path d="M28,62 Q185,38 342,62" fill="rgba(255,255,255,0.06)" stroke="rgba(210,200,160,0.28)" stroke-width="1.5"/>
+      <ellipse cx="185" cy="50" rx="25" ry="9" fill="rgba(218,208,168,0.52)" stroke="rgba(198,188,148,0.5)" stroke-width="1.5"/>
+      <!-- Yellow straw -->
+      <rect x="215" y="-35" width="22" height="330" rx="11" fill="#ffd700" transform="rotate(4,226,130)"/>
+      <rect x="215" y="-35" width="6" height="330" rx="3" fill="rgba(255,255,255,0.38)" transform="rotate(4,226,130)"/>
+      <!-- Passion fruit + orange slice -->
+      <circle cx="72" cy="128" r="30" fill="#ff8c00"/>
+      <circle cx="72" cy="128" r="24" fill="#ffaa00"/>
+      <circle cx="72" cy="128" r="18" fill="#ffd84f"/>
+      <ellipse cx="65" cy="122" rx="3.5" ry="5.5" fill="#5d3500" transform="rotate(-15,65,122)"/>
+      <ellipse cx="79" cy="120" rx="3.5" ry="5.5" fill="#5d3500" transform="rotate(12,79,120)"/>
+      <ellipse cx="72" cy="135" rx="3.5" ry="5.5" fill="#5d3500"/>
+      <circle cx="295" cy="128" r="26" fill="#ff8c00" stroke="#ff6600" stroke-width="3"/>
+      <circle cx="295" cy="128" r="20" fill="#ffaa00"/>
+      <line x1="295" y1="108" x2="295" y2="148" stroke="rgba(180,80,0,0.3)" stroke-width="2"/>
+      <line x1="275" y1="128" x2="315" y2="128" stroke="rgba(180,80,0,0.3)" stroke-width="2"/>
+      <line x1="281" y1="114" x2="309" y2="142" stroke="rgba(180,80,0,0.2)" stroke-width="1.5"/>
+      <ellipse cx="185" cy="476" rx="148" ry="22" fill="rgba(255,170,0,0.22)"/>
+    </svg>
+  </div>
+
+  <div class="bottom-bar">
+    <img class="logo-circle" src="logo.png" alt="Logo">
+    <div class="love-side">
+      <p class="shop-label">Tata Mama Coffee</p>
+      <p class="love-line"><span class="heart">♥</span> Made with Love</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     ⑤ RED LEMON TEA
+════════════════════════════════════════════ -->
+<div class="poster" id="p5">
+  <div class="poster-bg"></div>
+
+  <svg class="leaf-tl" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#3aaa50"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#1d6e28" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q152,118 180,104" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#2e9640" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
+  <svg class="leaf-tr" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#3aaa50"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#1d6e28" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#2e9640" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
+
+  <div class="top-content">
+    <p class="tagline">Zesty &amp; Refreshing</p>
+    <h2 class="drink-name">Red Lemon Tea</h2>
+  </div>
+
+  <div class="drink-wrap">
+    <svg width="370" height="510" viewBox="0 0 370 510" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="cup5"><path d="M28,62 L58,468 Q185,492 312,468 L342,62 Z"/></clipPath>
+        <linearGradient id="liq5" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffe0e0"/>
+          <stop offset="18%" stop-color="#ff9090"/>
+          <stop offset="45%" stop-color="#dd2020"/>
+          <stop offset="75%" stop-color="#990000"/>
+          <stop offset="100%" stop-color="#4a0000"/>
+        </linearGradient>
+        <linearGradient id="cupshine5" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.32)"/>
+          <stop offset="18%" stop-color="rgba(255,255,255,0.10)"/>
+          <stop offset="82%" stop-color="rgba(255,255,255,0.04)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.24)"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="185" cy="490" rx="118" ry="16" fill="rgba(0,0,0,0.3)"/>
+      <g clip-path="url(#cup5)">
+        <rect x="0" y="0" width="370" height="510" fill="url(#liq5)"/>
+        <!-- Ice -->
+        <rect x="62" y="318" width="70" height="56" rx="8" fill="rgba(210,238,255,0.44)" transform="rotate(-13,97,346)" stroke="rgba(180,222,255,0.38)" stroke-width="1.5"/>
+        <rect x="160" y="298" width="64" height="52" rx="8" fill="rgba(215,240,255,0.40)" transform="rotate(8,192,324)" stroke="rgba(180,222,255,0.35)" stroke-width="1.5"/>
+        <rect x="218" y="320" width="66" height="54" rx="8" fill="rgba(205,235,255,0.42)" transform="rotate(-6,251,347)" stroke="rgba(180,222,255,0.35)" stroke-width="1.5"/>
+        <rect x="62" y="318" width="17" height="56" rx="5" fill="rgba(255,255,255,0.26)" transform="rotate(-13,97,346)"/>
+        <rect x="0" y="0" width="370" height="510" fill="url(#cupshine5)"/>
+      </g>
+      <path d="M28,62 L58,468 Q185,492 312,468 L342,62" fill="none" stroke="rgba(210,180,180,0.5)" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M36,70 L64,460" stroke="rgba(255,255,255,0.42)" stroke-width="13" stroke-linecap="round" fill="none" clip-path="url(#cup5)"/>
+      <ellipse cx="82" cy="198" rx="4" ry="7" fill="rgba(255,255,255,0.46)"/>
+      <ellipse cx="290" cy="240" rx="3.5" ry="6" fill="rgba(255,255,255,0.42)"/>
+      <ellipse cx="96" cy="340" rx="3" ry="5" fill="rgba(255,255,255,0.38)"/>
+      <ellipse cx="185" cy="62" rx="157" ry="26" fill="rgba(228,205,205,0.38)" stroke="rgba(210,180,180,0.52)" stroke-width="2"/>
+      <path d="M28,62 Q185,38 342,62" fill="rgba(255,255,255,0.06)" stroke="rgba(210,180,180,0.28)" stroke-width="1.5"/>
+      <ellipse cx="185" cy="50" rx="25" ry="9" fill="rgba(215,192,192,0.52)" stroke="rgba(195,172,172,0.5)" stroke-width="1.5"/>
+      <!-- Red straw -->
+      <rect x="215" y="-35" width="22" height="330" rx="11" fill="#cc0022" transform="rotate(4,226,130)"/>
+      <rect x="215" y="-35" width="6" height="330" rx="3" fill="rgba(255,255,255,0.38)" transform="rotate(4,226,130)"/>
+      <!-- Lemon slice on cup rim -->
+      <circle cx="300" cy="68" r="30" fill="#ffe566" stroke="#cc9900" stroke-width="3"/>
+      <circle cx="300" cy="68" r="24" fill="#ffd700"/>
+      <line x1="300" y1="44" x2="300" y2="92" stroke="rgba(180,120,0,0.3)" stroke-width="2"/>
+      <line x1="276" y1="68" x2="324" y2="68" stroke="rgba(180,120,0,0.3)" stroke-width="2"/>
+      <line x1="283" y1="51" x2="317" y2="85" stroke="rgba(180,120,0,0.22)" stroke-width="1.5"/>
+      <line x1="317" y1="51" x2="283" y2="85" stroke="rgba(180,120,0,0.22)" stroke-width="1.5"/>
+      <circle cx="300" cy="68" r="8" fill="rgba(255,240,160,0.7)"/>
+      <!-- Second lemon -->
+      <circle cx="64" cy="130" r="26" fill="#ffe566" stroke="#cc9900" stroke-width="2.5"/>
+      <circle cx="64" cy="130" r="20" fill="#ffd700"/>
+      <line x1="64" y1="110" x2="64" y2="150" stroke="rgba(180,120,0,0.3)" stroke-width="2"/>
+      <line x1="44" y1="130" x2="84" y2="130" stroke="rgba(180,120,0,0.3)" stroke-width="2"/>
+      <circle cx="64" cy="130" r="7" fill="rgba(255,240,160,0.6)"/>
+      <ellipse cx="185" cy="476" rx="148" ry="22" fill="rgba(200,30,30,0.22)"/>
+    </svg>
+  </div>
+
+  <div class="bottom-bar">
+    <img class="logo-circle" src="logo.png" alt="Logo">
+    <div class="love-side">
+      <p class="shop-label">Tata Mama Coffee</p>
+      <p class="love-line"><span class="heart">♥</span> Made with Love</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     ⑥ TARO WITH MILK
+════════════════════════════════════════════ -->
+<div class="poster" id="p6">
+  <div class="poster-bg"></div>
+
+  <svg class="leaf-tl" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#3aaa50"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#1d6e28" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q152,118 180,104" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#2e9640" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
+  <svg class="leaf-tr" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#3aaa50"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#1d6e28" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#2e9640" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
+
+  <div class="top-content">
+    <p class="tagline">Creamy &amp; Dreamy</p>
+    <h2 class="drink-name">Taro<br>with Milk</h2>
+  </div>
+
+  <div class="drink-wrap">
+    <svg width="370" height="510" viewBox="0 0 370 510" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="cup6"><path d="M28,62 L58,468 Q185,492 312,468 L342,62 Z"/></clipPath>
+        <linearGradient id="liq6" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f5e8ff"/>
+          <stop offset="18%" stop-color="#ddb0f8"/>
+          <stop offset="45%" stop-color="#aa44dd"/>
+          <stop offset="75%" stop-color="#7010b0"/>
+          <stop offset="100%" stop-color="#380060"/>
+        </linearGradient>
+        <linearGradient id="cupshine6" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.32)"/>
+          <stop offset="18%" stop-color="rgba(255,255,255,0.10)"/>
+          <stop offset="82%" stop-color="rgba(255,255,255,0.04)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.24)"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="185" cy="490" rx="118" ry="16" fill="rgba(0,0,0,0.3)"/>
+      <g clip-path="url(#cup6)">
+        <rect x="0" y="0" width="370" height="510" fill="url(#liq6)"/>
+        <!-- BOBA PEARLS at bottom -->
+        <circle cx="88" cy="428" r="16" fill="#180a00"/>
+        <circle cx="84" cy="424" r="5" fill="rgba(80,40,10,0.7)"/>
+        <circle cx="122" cy="440" r="16" fill="#1a0c00"/>
+        <circle cx="118" cy="436" r="5" fill="rgba(80,40,10,0.7)"/>
+        <circle cx="158" cy="430" r="16" fill="#180a00"/>
+        <circle cx="154" cy="426" r="5" fill="rgba(80,40,10,0.7)"/>
+        <circle cx="192" cy="444" r="16" fill="#1a0c00"/>
+        <circle cx="188" cy="440" r="5" fill="rgba(80,40,10,0.7)"/>
+        <circle cx="226" cy="432" r="16" fill="#180a00"/>
+        <circle cx="222" cy="428" r="5" fill="rgba(80,40,10,0.7)"/>
+        <circle cx="260" cy="442" r="16" fill="#1a0c00"/>
+        <circle cx="256" cy="438" r="5" fill="rgba(80,40,10,0.7)"/>
+        <circle cx="104" cy="462" r="15" fill="#180a00"/>
+        <circle cx="142" cy="468" r="15" fill="#1a0c00"/>
+        <circle cx="180" cy="462" r="15" fill="#180a00"/>
+        <circle cx="218" cy="468" r="15" fill="#1a0c00"/>
+        <circle cx="248" cy="460" r="14" fill="#180a00"/>
+        <!-- Milk foam at top -->
+        <ellipse cx="185" cy="112" rx="140" ry="46" fill="rgba(250,240,255,0.92)"/>
+        <ellipse cx="128" cy="94" rx="60" ry="32" fill="rgba(255,255,255,0.84)"/>
+        <ellipse cx="228" cy="90" rx="54" ry="28" fill="rgba(255,255,255,0.80)"/>
+        <ellipse cx="180" cy="88" rx="46" ry="24" fill="rgba(255,255,255,0.90)"/>
+        <rect x="0" y="0" width="370" height="510" fill="url(#cupshine6)"/>
+      </g>
+      <path d="M28,62 L58,468 Q185,492 312,468 L342,62" fill="none" stroke="rgba(210,188,230,0.5)" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M36,70 L64,460" stroke="rgba(255,255,255,0.42)" stroke-width="13" stroke-linecap="round" fill="none" clip-path="url(#cup6)"/>
+      <ellipse cx="82" cy="198" rx="4" ry="7" fill="rgba(255,255,255,0.46)"/>
+      <ellipse cx="290" cy="240" rx="3.5" ry="6" fill="rgba(255,255,255,0.42)"/>
+      <ellipse cx="96" cy="340" rx="3" ry="5" fill="rgba(255,255,255,0.38)"/>
+      <ellipse cx="185" cy="62" rx="157" ry="26" fill="rgba(228,210,245,0.38)" stroke="rgba(210,188,232,0.52)" stroke-width="2"/>
+      <path d="M28,62 Q185,38 342,62" fill="rgba(255,255,255,0.06)" stroke="rgba(210,188,232,0.28)" stroke-width="1.5"/>
+      <ellipse cx="185" cy="50" rx="25" ry="9" fill="rgba(215,195,238,0.52)" stroke="rgba(195,175,218,0.5)" stroke-width="1.5"/>
+      <!-- Purple straw -->
+      <rect x="215" y="-35" width="22" height="330" rx="11" fill="#8822cc" transform="rotate(4,226,130)"/>
+      <rect x="215" y="-35" width="6" height="330" rx="3" fill="rgba(255,255,255,0.38)" transform="rotate(4,226,130)"/>
+      <!-- Taro root decoration -->
+      <ellipse cx="72" cy="138" rx="32" ry="22" fill="#aa88cc"/>
+      <ellipse cx="72" cy="138" rx="24" ry="16" fill="#bb99dd"/>
+      <!-- Taro pattern -->
+      <path d="M55,128 Q72,118 89,128 Q72,138 55,128Z" fill="rgba(255,255,255,0.2)"/>
+      <path d="M58,142 Q72,150 86,142" fill="none" stroke="rgba(100,40,140,0.4)" stroke-width="1.5"/>
+      <circle cx="72" cy="130" r="5" fill="rgba(255,255,255,0.35)"/>
+      <ellipse cx="185" cy="476" rx="148" ry="22" fill="rgba(150,50,220,0.22)"/>
+    </svg>
+  </div>
+
+  <div class="bottom-bar">
+    <img class="logo-circle" src="logo.png" alt="Logo">
+    <div class="love-side">
+      <p class="shop-label">Tata Mama Coffee</p>
+      <p class="love-line"><span class="heart">♥</span> Made with Love</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     ⑦ ICED COFFEE WITH MILK
+════════════════════════════════════════════ -->
+<div class="poster" id="p7">
+  <div class="poster-bg"></div>
+
+  <svg class="leaf-tl" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#3aaa50"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#1d6e28" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,138 Q152,118 180,104" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#2e9640" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
+  <svg class="leaf-tr" viewBox="0 0 220 350" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+    <path d="M110,8 C148,48 180,115 182,182 C184,248 160,308 110,342 C60,308 36,248 38,182 C40,115 72,48 110,8Z" fill="#3aaa50"/>
+    <path d="M110,8 Q108,105 110,342" stroke="#1d6e28" stroke-width="4" fill="none"/>
+    <path d="M110,85 Q148,70 178,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M110,85 Q72,70 42,58" stroke="#2a8038" stroke-width="2" fill="none" opacity="0.55"/>
+    <path d="M58,5 C32,52 12,126 20,198 C28,248 62,280 83,260 C100,244 102,210 90,168 C74,112 60,48 58,5Z" fill="#2e9640" opacity="0.82" transform="rotate(-17,58,132)"/>
+  </svg>
+
+  <div class="top-content">
+    <p class="tagline">Your Daily Boost</p>
+    <h2 class="drink-name">Iced Coffee<br>with Milk</h2>
+  </div>
+
+  <div class="drink-wrap">
+    <svg width="370" height="510" viewBox="0 0 370 510" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="cup7"><path d="M28,62 L58,468 Q185,492 312,468 L342,62 Z"/></clipPath>
+        <linearGradient id="liq7" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e8d5c0"/>
+          <stop offset="22%" stop-color="#c8a07a"/>
+          <stop offset="50%" stop-color="#7a4a1a"/>
+          <stop offset="78%" stop-color="#3e1c00"/>
+          <stop offset="100%" stop-color="#1a0800"/>
+        </linearGradient>
+        <linearGradient id="milkpour" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(255,250,240,0.95)"/>
+          <stop offset="100%" stop-color="rgba(230,210,185,0.5)"/>
+        </linearGradient>
+        <linearGradient id="cupshine7" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.32)"/>
+          <stop offset="18%" stop-color="rgba(255,255,255,0.10)"/>
+          <stop offset="82%" stop-color="rgba(255,255,255,0.04)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.24)"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="185" cy="490" rx="118" ry="16" fill="rgba(0,0,0,0.3)"/>
+      <g clip-path="url(#cup7)">
+        <rect x="0" y="0" width="370" height="510" fill="url(#liq7)"/>
+        <!-- Ice cubes (large, coffee shop style) -->
+        <rect x="60" y="300" width="74" height="60" rx="9" fill="rgba(215,238,255,0.38)" transform="rotate(-12,97,330)" stroke="rgba(180,222,255,0.36)" stroke-width="2"/>
+        <rect x="158" y="280" width="68" height="56" rx="9" fill="rgba(220,242,255,0.35)" transform="rotate(9,192,308)" stroke="rgba(180,222,255,0.33)" stroke-width="2"/>
+        <rect x="215" y="308" width="70" height="58" rx="9" fill="rgba(210,235,255,0.38)" transform="rotate(-7,250,337)" stroke="rgba(180,222,255,0.33)" stroke-width="2"/>
+        <!-- Ice highlights -->
+        <rect x="60" y="300" width="18" height="60" rx="5" fill="rgba(255,255,255,0.25)" transform="rotate(-12,97,330)"/>
+        <rect x="158" y="280" width="16" height="56" rx="5" fill="rgba(255,255,255,0.22)" transform="rotate(9,192,308)"/>
+        <!-- Milk/cream layer flowing in from top -->
+        <ellipse cx="185" cy="128" rx="138" ry="50" fill="url(#milkpour)"/>
+        <path d="M47,100 Q185,155 323,100" fill="rgba(255,250,240,0.6)" stroke="none"/>
+        <!-- Milk wisps/swirl -->
+        <path d="M120,135 Q155,118 195,140 Q225,155 260,130" fill="none" stroke="rgba(230,210,185,0.55)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M100,148 Q145,128 185,148 Q220,165 255,145" fill="none" stroke="rgba(230,210,185,0.4)" stroke-width="4" stroke-linecap="round"/>
+        <rect x="0" y="0" width="370" height="510" fill="url(#cupshine7)"/>
+      </g>
+      <path d="M28,62 L58,468 Q185,492 312,468 L342,62" fill="none" stroke="rgba(200,185,170,0.5)" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M36,70 L64,460" stroke="rgba(255,255,255,0.42)" stroke-width="13" stroke-linecap="round" fill="none" clip-path="url(#cup7)"/>
+      <ellipse cx="82" cy="198" rx="4" ry="7" fill="rgba(255,255,255,0.46)"/>
+      <ellipse cx="290" cy="240" rx="3.5" ry="6" fill="rgba(255,255,255,0.42)"/>
+      <ellipse cx="96" cy="340" rx="3" ry="5" fill="rgba(255,255,255,0.38)"/>
+      <ellipse cx="300" cy="180" rx="3" ry="5.5" fill="rgba(255,255,255,0.42)"/>
+      <ellipse cx="72" cy="280" rx="2.5" ry="4" fill="rgba(255,255,255,0.32)"/>
+      <ellipse cx="185" cy="62" rx="157" ry="26" fill="rgba(225,208,188,0.38)" stroke="rgba(208,188,168,0.52)" stroke-width="2"/>
+      <path d="M28,62 Q185,38 342,62" fill="rgba(255,255,255,0.06)" stroke="rgba(208,188,168,0.28)" stroke-width="1.5"/>
+      <ellipse cx="185" cy="50" rx="25" ry="9" fill="rgba(215,195,175,0.52)" stroke="rgba(195,175,155,0.5)" stroke-width="1.5"/>
+      <!-- Black straw with white stripe -->
+      <rect x="215" y="-35" width="22" height="330" rx="11" fill="#222" transform="rotate(4,226,130)"/>
+      <rect x="215" y="-35" width="6" height="330" rx="3" fill="rgba(255,255,255,0.38)" transform="rotate(4,226,130)"/>
+      <!-- Coffee beans decoration -->
+      <ellipse cx="72" cy="132" rx="20" ry="14" fill="#5c2e00" transform="rotate(-20,72,132)"/>
+      <path d="M72,118 Q72,132 72,146" stroke="#3a1800" stroke-width="2" fill="none" transform="rotate(-20,72,132)"/>
+      <ellipse cx="58" cy="152" rx="17" ry="12" fill="#6e3800" transform="rotate(15,58,152)"/>
+      <path d="M58,140 Q58,152 58,164" stroke="#4a2000" stroke-width="2" fill="none" transform="rotate(15,58,152)"/>
+      <ellipse cx="90" cy="148" rx="16" ry="11" fill="#5c2e00" transform="rotate(-10,90,148)"/>
+      <path d="M90,137 Q90,148 90,159" stroke="#3a1800" stroke-width="1.5" fill="none" transform="rotate(-10,90,148)"/>
+      <ellipse cx="185" cy="476" rx="148" ry="22" fill="rgba(100,55,20,0.26)"/>
+    </svg>
+  </div>
+
+  <div class="bottom-bar">
+    <img class="logo-circle" src="logo.png" alt="Logo">
+    <div class="love-side">
+      <p class="shop-label">Tata Mama Coffee</p>
+      <p class="love-line"><span class="heart">♥</span> Made with Love</p>
+    </div>
+  </div>
+</div>
+
+</div>
 </body>
 </html>

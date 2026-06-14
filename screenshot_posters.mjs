@@ -23,9 +23,12 @@ const browser = await puppeteer.launch({
 });
 
 const page = await browser.newPage();
-await page.setViewport({ width: 1400, height: 900, deviceScaleFactor: 2 });
-await page.goto(fileUrl, { waitUntil: 'networkidle0', timeout: 30000 });
-await new Promise(r => setTimeout(r, 1500));
+await page.setViewport({ width: 1800, height: 1200, deviceScaleFactor: 2 });
+
+await page.goto(fileUrl, { waitUntil: 'networkidle0', timeout: 60000 });
+
+// Extra wait for images and fonts
+await new Promise(r => setTimeout(r, 3000));
 
 for (const drink of drinks) {
   const el = await page.$(`#${drink.id}`);
