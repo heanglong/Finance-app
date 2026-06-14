@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tata Mama Coffee – Drink Posters</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0f0f1a;
+      padding: 48px 32px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .page-title {
+      text-align: center;
+      color: #fff;
+      font-size: 1.3rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      font-weight: 300;
+      opacity: 0.6;
+    }
+
+    .brand-title {
+      text-align: center;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      margin-bottom: 48px;
+    }
+
+    .hint {
+      text-align: center;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.8rem;
+      margin-bottom: 56px;
+      letter-spacing: 1px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
+      gap: 48px;
+      justify-items: center;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* ── BASE POSTER ── */
+    .poster {
+      width: 560px;
+      height: 560px;
+      border-radius: 28px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 52px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .poster:hover { transform: translateY(-6px); box-shadow: 0 44px 100px rgba(0,0,0,0.7); }
+
+    /* BG gradient layer */
+    .poster .bg { position: absolute; inset: 0; z-index: 0; }
+
+    /* Decorative circles */
+    .poster .deco {
+      position: absolute;
+      border-radius: 50%;
+      z-index: 1;
+      opacity: 0.18;
+    }
+
+    /* Daisy SVG decorations */
+    .poster .daisy {
+      position: absolute;
+      z-index: 2;
+      opacity: 0.22;
+    }
+
+    /* Cup illustration area */
+    .cup-area {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 58%;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cup {
+      font-size: 120px;
+      line-height: 1;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,0.35));
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    /* Bottom content */
+    .content {
+      position: relative;
+      z-index: 4;
+      text-align: center;
+      color: #fff;
+      padding: 0 32px;
+    }
+
+    .drink-label {
+      font-size: 0.7rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      opacity: 0.75;
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+
+    .drink-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+
+    .drink-sub {
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      opacity: 0.6;
+      font-weight: 300;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: rgba(255,255,255,0.5);
+      margin: 0 auto 16px;
+      border-radius: 2px;
+    }
+
+    .brand {
+      font-size: 0.72rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      opacity: 0.55;
+      font-weight: 600;
+    }
+
+    /* Frosted badge */
+    .badge {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      z-index: 5;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.65rem;
+      color: #fff;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* Bottom shimmer bar */
+    .shimmer {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      z-index: 5;
+    }
+
+    /* ═══════════════════════════════
+       DRINK THEMES
+    ═══════════════════════════════ */
+
+    /* 1 – Passion Cream */
+    #p1 .bg { background: linear-gradient(145deg, #f9a825 0%, #e65100 45%, #bf360c 100%); }
+    #p1 .deco.d1 { width:320px; height:320px; top:-80px; left:-80px; background:#ffcc02; }
+    #p1 .deco.d2 { width:200px; height:200px; bottom:-40px; right:-40px; background:#fff; }
+    #p1 .shimmer { background: linear-gradient(90deg, #ffcc02, #ff6d00, #ffcc02); }
+
+    /* 2 – Green Tea with Milk */
+    #p2 .bg { background: linear-gradient(145deg, #aed581 0%, #43a047 45%, #1b5e20 100%); }
+    #p2 .deco.d1 { width:280px; height:280px; top:-60px; right:-60px; background:#ccff90; }
+    #p2 .deco.d2 { width:180px; height:180px; bottom:-40px; left:-20px; background:#fff; }
+    #p2 .shimmer { background: linear-gradient(90deg, #ccff90, #43a047, #ccff90); }
+
+    /* 3 – Sweet & Sour Tamarind Tea */
+    #p3 .bg { background: linear-gradient(145deg, #d4a355 0%, #8d4e1e 50%, #3e1f00 100%); }
+    #p3 .deco.d1 { width:300px; height:300px; top:-70px; left:-50px; background:#ffe0b2; }
+    #p3 .deco.d2 { width:160px; height:160px; bottom:-30px; right:-20px; background:#bf8040; }
+    #p3 .shimmer { background: linear-gradient(90deg, #d4a355, #8d4e1e, #d4a355); }
+
+    /* 4 – Passion Soda */
+    #p4 .bg { background: linear-gradient(145deg, #ffe57f 0%, #ff8f00 40%, #e65100 100%); }
+    #p4 .deco.d1 { width:260px; height:260px; top:-50px; right:-50px; background:#fffde7; }
+    #p4 .deco.d2 { width:200px; height:200px; bottom:-60px; left:-30px; background:#ffca28; }
+    #p4 .shimmer { background: linear-gradient(90deg, #ffe57f, #ff8f00, #ffe57f); }
+
+    /* 5 – Red Lemon Tea */
+    #p5 .bg { background: linear-gradient(145deg, #ef9a9a 0%, #c62828 50%, #7f0000 100%); }
+    #p5 .deco.d1 { width:300px; height:300px; top:-80px; left:-60px; background:#ffcdd2; }
+    #p5 .deco.d2 { width:180px; height:180px; bottom:-40px; right:-30px; background:#ff1744; }
+    #p5 .shimmer { background: linear-gradient(90deg, #ff8a80, #c62828, #ff8a80); }
+
+    /* 6 – Taro with Milk */
+    #p6 .bg { background: linear-gradient(145deg, #e1bee7 0%, #8e24aa 50%, #4a148c 100%); }
+    #p6 .deco.d1 { width:280px; height:280px; top:-60px; right:-60px; background:#f3e5f5; }
+    #p6 .deco.d2 { width:200px; height:200px; bottom:-50px; left:-30px; background:#ce93d8; }
+    #p6 .shimmer { background: linear-gradient(90deg, #e1bee7, #8e24aa, #e1bee7); }
+
+    /* 7 – Iced Coffee with Milk */
+    #p7 .bg { background: linear-gradient(145deg, #a1887f 0%, #4e342e 50%, #1a0a00 100%); }
+    #p7 .deco.d1 { width:300px; height:300px; top:-70px; left:-60px; background:#d7ccc8; }
+    #p7 .deco.d2 { width:200px; height:200px; bottom:-50px; right:-30px; background:#795548; }
+    #p7 .shimmer { background: linear-gradient(90deg, #a1887f, #4e342e, #a1887f); }
+
+    /* print helper */
+    @media print {
+      body { background: white; padding: 0; }
+      .page-title, .brand-title, .hint { display: none; }
+      .grid { display: block; }
+      .poster { width: 100vw; height: 100vw; border-radius: 0; margin: 0; page-break-after: always; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="page-title">Menu Collection</p>
+  <h1 class="brand-title">Tata Mama Coffee</h1>
+  <p class="hint">Click any poster to save • Right-click → Save Image As</p>
+
+  <div class="grid">
+
+    <!-- 1. Passion Cream -->
+    <div class="poster" id="p1">
+      <div class="bg"></div>
+      <div class="deco d1"></div>
+      <div class="deco d2"></div>
+      <svg class="daisy" style="top:12px;left:20px;width:90px" viewBox="0 0 100 100">
+        <g transform="translate(50,50)">
+          <circle r="10" fill="#fff"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
+        </g>
+      </svg>
+      <div class="badge">Signature</div>
+      <div class="cup-area"><div class="cup">🧋</div></div>
+      <div class="content">
+        <p class="drink-label">Creamy Blend</p>
+        <h2 class="drink-name">Passion Cream</h2>
+        <p class="drink-sub">Rich &amp; Velvety Smooth</p>
+        <div class="divider"></div>
+        <p class="brand">Tata Mama Coffee</p>
+      </div>
+      <div class="shimmer"></div>
+    </div>
+
+    <!-- 2. Green Tea with Milk -->
+    <div class="poster" id="p2">
+      <div class="bg"></div>
+      <div class="deco d1"></div>
+      <div class="deco d2"></div>
+      <svg class="daisy" style="bottom:160px;right:18px;width:70px" viewBox="0 0 100 100">
+        <g transform="translate(50,50)">
+          <circle r="10" fill="#fff"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
+        </g>
+      </svg>
+      <div class="badge">Fresh Pick</div>
+      <div class="cup-area"><div class="cup">🍵</div></div>
+      <div class="content">
+        <p class="drink-label">Matcha Series</p>
+        <h2 class="drink-name">Green Tea<br>with Milk</h2>
+        <p class="drink-sub">Fresh &amp; Naturally Sweet</p>
+        <div class="divider"></div>
+        <p class="brand">Tata Mama Coffee</p>
+      </div>
+      <div class="shimmer"></div>
+    </div>
+
+    <!-- 3. Sweet & Sour Tamarind Tea -->
+    <div class="poster" id="p3">
+      <div class="bg"></div>
+      <div class="deco d1"></div>
+      <div class="deco d2"></div>
+      <svg class="daisy" style="top:10px;right:24px;width:80px" viewBox="0 0 100 100">
+        <g transform="translate(50,50)">
+          <circle r="10" fill="#fff"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
+        </g>
+      </svg>
+      <div class="badge">Fan Favorite</div>
+      <div class="cup-area"><div class="cup">🫖</div></div>
+      <div class="content">
+        <p class="drink-label">Exotic Blend</p>
+        <h2 class="drink-name">Sweet &amp; Sour<br>Tamarind Tea</h2>
+        <p class="drink-sub">Tropical Tangy Twist</p>
+        <div class="divider"></div>
+        <p class="brand">Tata Mama Coffee</p>
+      </div>
+      <div class="shimmer"></div>
+    </div>
+
+    <!-- 4. Passion Soda -->
+    <div class="poster" id="p4">
+      <div class="bg"></div>
+      <div class="deco d1"></div>
+      <div class="deco d2"></div>
+      <svg class="daisy" style="bottom:170px;left:16px;width:65px" viewBox="0 0 100 100">
+        <g transform="translate(50,50)">
+          <circle r="10" fill="#fff"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
+        </g>
+      </svg>
+      <div class="badge">Refreshing</div>
+      <div class="cup-area"><div class="cup">🥤</div></div>
+      <div class="content">
+        <p class="drink-label">Soda Series</p>
+        <h2 class="drink-name">Passion Soda</h2>
+        <p class="drink-sub">Fizzy &amp; Fruity Burst</p>
+        <div class="divider"></div>
+        <p class="brand">Tata Mama Coffee</p>
+      </div>
+      <div class="shimmer"></div>
+    </div>
+
+    <!-- 5. Red Lemon Tea -->
+    <div class="poster" id="p5">
+      <div class="bg"></div>
+      <div class="deco d1"></div>
+      <div class="deco d2"></div>
+      <svg class="daisy" style="top:14px;left:18px;width:75px" viewBox="0 0 100 100">
+        <g transform="translate(50,50)">
+          <circle r="10" fill="#fff"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
+        </g>
+      </svg>
+      <div class="badge">Best Seller</div>
+      <div class="cup-area"><div class="cup">🍹</div></div>
+      <div class="content">
+        <p class="drink-label">Tea Collection</p>
+        <h2 class="drink-name">Red Lemon Tea</h2>
+        <p class="drink-sub">Zesty &amp; Bold</p>
+        <div class="divider"></div>
+        <p class="brand">Tata Mama Coffee</p>
+      </div>
+      <div class="shimmer"></div>
+    </div>
+
+    <!-- 6. Taro with Milk -->
+    <div class="poster" id="p6">
+      <div class="bg"></div>
+      <div class="deco d1"></div>
+      <div class="deco d2"></div>
+      <svg class="daisy" style="top:12px;right:20px;width:85px" viewBox="0 0 100 100">
+        <g transform="translate(50,50)">
+          <circle r="10" fill="#fff"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
+        </g>
+      </svg>
+      <div class="badge">Popular</div>
+      <div class="cup-area"><div class="cup">🧋</div></div>
+      <div class="content">
+        <p class="drink-label">Milk Tea Series</p>
+        <h2 class="drink-name">Taro<br>with Milk</h2>
+        <p class="drink-sub">Creamy &amp; Dreamy</p>
+        <div class="divider"></div>
+        <p class="brand">Tata Mama Coffee</p>
+      </div>
+      <div class="shimmer"></div>
+    </div>
+
+    <!-- 7. Iced Coffee with Milk -->
+    <div class="poster" id="p7">
+      <div class="bg"></div>
+      <div class="deco d1"></div>
+      <div class="deco d2"></div>
+      <svg class="daisy" style="bottom:175px;right:20px;width:70px;opacity:0.15" viewBox="0 0 100 100">
+        <g transform="translate(50,50)">
+          <circle r="10" fill="#fff"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(0)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(45)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(90)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(135)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(180)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(225)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(270)"/>
+          <rect x="-5" y="-48" width="10" height="36" rx="5" fill="#fff" transform="rotate(315)"/>
+        </g>
+      </svg>
+      <div class="badge">Classic</div>
+      <div class="cup-area"><div class="cup">☕</div></div>
+      <div class="content">
+        <p class="drink-label">Coffee Series</p>
+        <h2 class="drink-name">Iced Coffee<br>with Milk</h2>
+        <p class="drink-sub">Bold &amp; Smooth</p>
+        <div class="divider"></div>
+        <p class="brand">Tata Mama Coffee</p>
+      </div>
+      <div class="shimmer"></div>
+    </div>
+
+  </div>
+
+  <p style="text-align:center;color:rgba(255,255,255,0.2);font-size:0.72rem;margin-top:56px;letter-spacing:2px;">
+    TATA MAMA COFFEE &nbsp;·&nbsp; RIGHT-CLICK EACH POSTER → SAVE IMAGE AS
+  </p>
+
+</body>
+</html>
