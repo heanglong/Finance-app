@@ -5,7 +5,37 @@ import * as XLSX from "xlsx";
 const DEFAULT_CATS = {
   personal: {
     income: ["Salary", "Freelance", "Investment", "Gift", "Other"],
-    expense: ["Food", "Transport", "Housing", "Health", "Shopping", "Entertainment", "Other"],
+    expense: [
+      "Ex-0011: Phone",
+      "Ex-0012: Bank/Transfer/Visa Fee",
+      "Ex-0014: Investment Fund (Stock)",
+      "Ex-0015: School Fee",
+      "Ex-0016: Loan Payment",
+      "Ex-0017: Insurance",
+      "Ex-0018: Lost or Unadjustable",
+      "Ex-0021: Main Meals for Family",
+      "Ex-0022: Party & Ceremony",
+      "Ex-0023: Eat Out/Date",
+      "Ex-0024: Snack & Drink",
+      "Ex-0031: Petrol and Gas",
+      "Ex-0033: Transportation",
+      "Ex-0041: Life Event and Trip",
+      "Ex-0042: Hobby & Movie",
+      "Ex-0043: Education & Books",
+      "Ex-0044: Charity",
+      "Ex-0045: Gifts/Jewelry",
+      "Ex-0051: Skincare and Hair",
+      "Ex-0052: Stationary",
+      "Ex-0054: Cloth & Bag",
+      "Ex-0061: Health Care",
+      "Ex-0062: Therapist and Massage",
+      "Ex-0065: Health Gear",
+      "Ex-0071: Appliances/Items",
+      "Ex-0073: TV and Internet",
+      "Ex-0082: Car Expenses",
+      "Ex-0083: Coffee Shop Expenses",
+      "Other",
+    ],
   },
   coffeeshop: {
     income: ["Coffee Sales", "Food Sales", "Catering", "Tips", "Other"],
@@ -85,58 +115,68 @@ const SEED = {
   ],
 };
 
-// ─── Excel Export ─────────────────────────────────────────────────────────────
-function exportMonthlyXLSX(transactions, selectedYear, pocketLabel) {
-  const MONTHS_FULL = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+// ─── Excel Export (with period filter) ───────────────────────────────────────
+function exportXLSX(transactions, pocketLabel, periodLabel, filterFn) {
   const wb = XLSX.utils.book_new();
+  const filtered = transactions.filter(filterFn).sort((a,b)=>new Date(a.date)-new Date(b.date));
 
-  // ── Sheet 1: Monthly Summary ──
-  const monthlyRows = [["Month", "Income ($)", "Expenses ($)", "Net ($)"]];
-  let totIncome = 0, totExpense = 0;
-  MONTHS.forEach((m, mi) => {
-    const mTxs = transactions.filter(t => {
-      const d = new Date(t.date);
-      return d.getFullYear() === selectedYear && d.getMonth() === mi;
-    });
-    const inc  = mTxs.filter(t => t.type === "income").reduce((s,t) => s+t.amount, 0);
-    const exp  = mTxs.filter(t => t.type === "expense").reduce((s,t) => s+t.amount, 0);
-    if (inc || exp) { monthlyRows.push([`${m} ${selectedYear}`, inc, exp, inc - exp]); totIncome += inc; totExpense += exp; }
+  // ── Sheet 1: Summary ──
+  const cashIn  = filtered.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0);
+  const cashOut = filtered.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0);
+  const summaryRows = [
+    ["Report Period", periodLabel],
+    ["Pocket", pocketLabel],
+    ["Generated", new Date().toLocaleDateString()],
+    [""],
+    ["", "Cash In ($)", "Cash Out ($)", "Net ($)"],
+    ["TOTAL", cashIn, cashOut, cashIn - cashOut],
+  ];
+  const ws0 = XLSX.utils.aoa_to_sheet(summaryRows);
+  ws0["!cols"] = [{ wch:20 },{ wch:14 },{ wch:14 },{ wch:14 }];
+  XLSX.utils.book_append_sheet(wb, ws0, "Summary");
+
+  // ── Sheet 2: All Transactions (Cash In | Cash Out columns) ──
+  const txRows = [["Date", "Category", "Note", "Cash In ($)", "Cash Out ($)"]];
+  filtered.forEach(t => {
+    txRows.push([
+      t.date, t.category, t.note,
+      t.type === "income"  ? t.amount : "",
+      t.type === "expense" ? t.amount : "",
+    ]);
   });
-  monthlyRows.push(["TOTAL", totIncome, totExpense, totIncome - totExpense]);
-  const ws1 = XLSX.utils.aoa_to_sheet(monthlyRows);
-  ws1["!cols"] = [{ wch: 18 },{ wch: 14 },{ wch: 14 },{ wch: 14 }];
-  XLSX.utils.book_append_sheet(wb, ws1, "Monthly Summary");
+  txRows.push(["", "TOTAL", "", cashIn, cashOut]);
+  const ws1 = XLSX.utils.aoa_to_sheet(txRows);
+  ws1["!cols"] = [{ wch:12 },{ wch:30 },{ wch:28 },{ wch:14 },{ wch:14 }];
+  XLSX.utils.book_append_sheet(wb, ws1, "Transactions");
 
-  // ── Sheet 2: All Transactions ──
-  const txRows = [["Date","Type","Category","Amount ($)","Note"]];
-  [...transactions]
-    .filter(t => new Date(t.date).getFullYear() === selectedYear)
-    .sort((a,b) => new Date(b.date)-new Date(a.date))
-    .forEach(t => txRows.push([t.date, t.type, t.category, t.amount, t.note]));
-  const ws2 = XLSX.utils.aoa_to_sheet(txRows);
-  ws2["!cols"] = [{ wch: 12 },{ wch: 10 },{ wch: 20 },{ wch: 14 },{ wch: 30 }];
-  XLSX.utils.book_append_sheet(wb, ws2, "Transactions");
-
-  // ── Sheet 3: Category Breakdown ──
+  // ── Sheet 3: Cash Out by Category ──
   const catSpend = {};
-  transactions.filter(t => t.type==="expense" && new Date(t.date).getFullYear()===selectedYear)
-    .forEach(t => { catSpend[t.category] = (catSpend[t.category]||0)+t.amount; });
-  const catRows = [["Category","Amount ($)","% of Total"]];
+  filtered.filter(t=>t.type==="expense").forEach(t=>{ catSpend[t.category]=(catSpend[t.category]||0)+t.amount; });
+  const catRows = [["Category", "Cash Out ($)", "% of Total"]];
   Object.entries(catSpend).sort((a,b)=>b[1]-a[1])
-    .forEach(([cat,amt]) => catRows.push([cat, amt, `${((amt/(totExpense||1))*100).toFixed(1)}%`]));
-  const ws3 = XLSX.utils.aoa_to_sheet(catRows);
-  ws3["!cols"] = [{ wch: 22 },{ wch: 14 },{ wch: 14 }];
-  XLSX.utils.book_append_sheet(wb, ws3, "Category Breakdown");
+    .forEach(([cat,amt]) => catRows.push([cat, amt, `${((amt/(cashOut||1))*100).toFixed(1)}%`]));
+  const ws2 = XLSX.utils.aoa_to_sheet(catRows);
+  ws2["!cols"] = [{ wch:32 },{ wch:14 },{ wch:14 }];
+  XLSX.utils.book_append_sheet(wb, ws2, "Cash Out by Category");
 
-  XLSX.writeFile(wb, `${pocketLabel}-${selectedYear}-monthly-report.xlsx`);
+  // ── Sheet 4: Cash In by Category ──
+  const incCat = {};
+  filtered.filter(t=>t.type==="income").forEach(t=>{ incCat[t.category]=(incCat[t.category]||0)+t.amount; });
+  const incRows = [["Category", "Cash In ($)", "% of Total"]];
+  Object.entries(incCat).sort((a,b)=>b[1]-a[1])
+    .forEach(([cat,amt]) => incRows.push([cat, amt, `${((amt/(cashIn||1))*100).toFixed(1)}%`]));
+  const ws3 = XLSX.utils.aoa_to_sheet(incRows);
+  ws3["!cols"] = [{ wch:24 },{ wch:14 },{ wch:14 }];
+  XLSX.utils.book_append_sheet(wb, ws3, "Cash In by Category");
+
+  XLSX.writeFile(wb, `${pocketLabel}-${periodLabel.replace(/\s/g,"-")}-report.xlsx`);
 }
 
 function exportYearlyXLSX(transactions, pocketLabel) {
   const wb = XLSX.utils.book_new();
   const years = [...new Set(transactions.map(t => new Date(t.date).getFullYear()))].sort((a,b)=>a-b);
 
-  // ── Sheet 1: Year over Year ──
-  const yearRows = [["Year","Income ($)","Expenses ($)","Net ($)"]];
+  const yearRows = [["Year","Cash In ($)","Cash Out ($)","Net ($)"]];
   years.forEach(y => {
     const yTxs = transactions.filter(t => new Date(t.date).getFullYear()===y);
     const inc  = yTxs.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0);
@@ -147,7 +187,6 @@ function exportYearlyXLSX(transactions, pocketLabel) {
   ws1["!cols"] = [{ wch:8 },{ wch:14 },{ wch:14 },{ wch:14 }];
   XLSX.utils.book_append_sheet(wb, ws1, "Year over Year");
 
-  // ── Sheet 2: Growth ──
   if (years.length > 1) {
     const growthRows = [["Period","Revenue Growth","Expense Growth"]];
     for (let i = 1; i < years.length; i++) {
@@ -596,10 +635,89 @@ function Budgets({ budgets, setBudgets, spentByCategory, fmt, accent, pocketCats
 }
 
 // ─── Reports ──────────────────────────────────────────────────────────────────
+// ─── Period Picker Modal ─────────────────────────────────────────────────────
+function PeriodPicker({ transactions, onDownload, onClose, accent }) {
+  const years = [...new Set(transactions.map(t=>new Date(t.date).getFullYear()))].sort((a,b)=>b-a);
+  const curMonth = new Date().getMonth();
+  const curYear  = new Date().getFullYear();
+  const [mode,    setMode]    = useState("month");
+  const [selYear, setSelYear] = useState(years[0] || curYear);
+  const [selMonth,setSelMonth]= useState(curMonth);
+
+  const handleDownload = () => {
+    let filterFn, label;
+    if (mode === "month") {
+      filterFn = t => { const d=new Date(t.date); return d.getFullYear()===selYear && d.getMonth()===selMonth; };
+      label = `${MONTHS[selMonth]}-${selYear}`;
+    } else if (mode === "year") {
+      filterFn = t => new Date(t.date).getFullYear()===selYear;
+      label = `${selYear}`;
+    } else {
+      filterFn = () => true;
+      label = "All-Time";
+    }
+    onDownload(filterFn, label);
+    onClose();
+  };
+
+  return (
+    <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.4)", display:"flex", alignItems:"flex-end", justifyContent:"center", zIndex:200 }}
+      onClick={onClose}>
+      <div style={{ background:"#fff", borderRadius:"24px 24px 0 0", padding:"28px 24px 48px", width:"100%", maxWidth:430 }}
+        onClick={e=>e.stopPropagation()}>
+        <div style={{ fontSize:17, fontWeight:700, color:"#1a1a1a", marginBottom:20 }}>Choose Report Period</div>
+
+        {/* Mode selector */}
+        <div style={{ display:"flex", gap:6, marginBottom:20 }}>
+          {[["month","By Month"],["year","By Year"],["all","All Time"]].map(([v,l])=>(
+            <button key={v} style={{ flex:1, padding:"9px 4px", borderRadius:10, border:"none", fontSize:12, fontWeight:600, cursor:"pointer",
+              background: mode===v ? accent : "#f0ede8", color: mode===v ? "#fff" : "#888" }}
+              onClick={()=>setMode(v)}>{l}</button>
+          ))}
+        </div>
+
+        {/* Year selector */}
+        {(mode==="month"||mode==="year") && (
+          <div>
+            <div style={{ fontSize:11, color:"#bbb", textTransform:"uppercase", letterSpacing:1, marginBottom:8 }}>Year</div>
+            <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginBottom:16 }}>
+              {years.map(y=>(
+                <button key={y} style={{ padding:"7px 16px", borderRadius:20, border:"none", fontSize:13, fontWeight:600, cursor:"pointer",
+                  background: selYear===y ? accent : "#f0ede8", color: selYear===y ? "#fff" : "#888" }}
+                  onClick={()=>setSelYear(y)}>{y}</button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Month selector */}
+        {mode==="month" && (
+          <div>
+            <div style={{ fontSize:11, color:"#bbb", textTransform:"uppercase", letterSpacing:1, marginBottom:8 }}>Month</div>
+            <div style={{ display:"flex", gap:6, flexWrap:"wrap", marginBottom:20 }}>
+              {MONTHS.map((m,i)=>(
+                <button key={m} style={{ padding:"7px 10px", borderRadius:10, border:"none", fontSize:12, fontWeight:600, cursor:"pointer",
+                  background: selMonth===i ? accent : "#f0ede8", color: selMonth===i ? "#fff" : "#888" }}
+                  onClick={()=>setSelMonth(i)}>{m}</button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <button style={{ width:"100%", padding:"15px", background:accent, color:"#fff", border:"none", borderRadius:14, fontSize:16, fontWeight:700, cursor:"pointer" }}
+          onClick={handleDownload}>
+          ⬇ Download Excel
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function Reports({ transactions, fmt, accent, pocketLabel }) {
   const [view,setView]=useState("monthly");
   const [selectedYear,setSelectedYear]=useState(2026);
   const [dlFeedback,setDlFeedback]=useState("");
+  const [showPicker,setShowPicker]=useState(false);
 
   const years=[...new Set(transactions.map(t=>new Date(t.date).getFullYear()))].sort((a,b)=>b-a);
   const safeYear = years.includes(selectedYear) ? selectedYear : (years[0]||2026);
@@ -634,29 +752,36 @@ function Reports({ transactions, fmt, accent, pocketLabel }) {
     setTimeout(()=>setDlFeedback(""),2500);
   };
 
-  const buildMonthlyPDF = () => {
-    const rows = monthlyData.filter(m=>m.hasTx).map(m=>
-      `<tr><td>${m.month} ${safeYear}</td><td class="g">$${m.income.toLocaleString()}</td><td class="r">$${m.expense.toLocaleString()}</td><td class="${m.net>=0?"n":"nb"}">$${m.net.toLocaleString()}</td></tr>`
-    ).join("");
-    const catRows = catList.map(([cat,amt])=>
-      `<tr><td>${cat}</td><td class="r">$${amt.toLocaleString()}</td><td>${((amt/(yExpense||1))*100).toFixed(1)}%</td></tr>`
-    ).join("");
-    exportPDF(`${pocketLabel} ${safeYear} Monthly Report`,`
-      <h1>${pocketLabel} — Monthly Report</h1>
-      <p style="color:#999;margin-bottom:20px">Year: ${safeYear} · Generated ${new Date().toLocaleDateString()}</p>
+  const handleXLSXDownload = (filterFn, label) => {
+    exportXLSX(transactions, pocketLabel, label, filterFn);
+    setDlFeedback("Downloaded! ✓");
+    setTimeout(()=>setDlFeedback(""),2500);
+  };
+
+  const buildPDF = (filterFn, label) => {
+    const filtered = transactions.filter(filterFn);
+    const cashIn  = filtered.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0);
+    const cashOut = filtered.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0);
+    const net     = cashIn - cashOut;
+    const txRows  = [...filtered].sort((a,b)=>new Date(a.date)-new Date(b.date))
+      .map(t=>`<tr><td>${t.date}</td><td>${t.category}</td><td>${t.note||""}</td><td class="g">${t.type==="income"?"$"+t.amount.toLocaleString():""}</td><td class="r">${t.type==="expense"?"$"+t.amount.toLocaleString():""}</td></tr>`)
+      .join("");
+    exportPDF(`${pocketLabel} — ${label}`,`
+      <h1>${pocketLabel} — ${label}</h1>
+      <p style="color:#999;margin-bottom:20px">Generated ${new Date().toLocaleDateString()}</p>
       <div class="cards">
-        <div class="card"><div class="cl">Total Income</div><div class="cv g">$${yIncome.toLocaleString()}</div></div>
-        <div class="card"><div class="cl">Total Expenses</div><div class="cv r">$${yExpense.toLocaleString()}</div></div>
-        <div class="card"><div class="cl">Net Saved</div><div class="cv ${yNet>=0?"n":"nb"}">$${yNet.toLocaleString()}</div></div>
+        <div class="card"><div class="cl">Cash In</div><div class="cv g">$${cashIn.toLocaleString()}</div></div>
+        <div class="card"><div class="cl">Cash Out</div><div class="cv r">$${cashOut.toLocaleString()}</div></div>
+        <div class="card"><div class="cl">Net</div><div class="cv ${net>=0?"n":"nb"}">$${net.toLocaleString()}</div></div>
       </div>
-      <h2>Month by Month</h2>
-      <table><thead><tr><th>Month</th><th>Income</th><th>Expenses</th><th>Net</th></tr></thead><tbody>${rows}</tbody></table>
-      <h2>Expense Breakdown</h2>
-      <table><thead><tr><th>Category</th><th>Amount</th><th>% of Total</th></tr></thead><tbody>${catRows}</tbody></table>`);
+      <h2>Transactions</h2>
+      <table><thead><tr><th>Date</th><th>Category</th><th>Note</th><th>Cash In</th><th>Cash Out</th></tr></thead><tbody>${txRows}</tbody></table>`);
   };
 
   return (
     <div>
+      {showPicker && <PeriodPicker transactions={transactions} onDownload={handleXLSXDownload} onClose={()=>setShowPicker(false)} accent={accent}/>}
+
       {/* View toggle */}
       <div style={{ display:"flex", gap:6, marginBottom:20 }}>
         {["monthly","yearly"].map(v=>(
@@ -681,10 +806,13 @@ function Reports({ transactions, fmt, accent, pocketLabel }) {
 
           {/* Download row */}
           <div style={s.dlRow}>
-            <button style={s.dlBtn} onClick={()=>triggerDownload(()=>exportMonthlyXLSX(transactions, safeYear, pocketLabel))}>
+            <button style={s.dlBtn} onClick={()=>setShowPicker(true)}>
               ⬇ Excel (.xlsx)
             </button>
-            <button style={s.dlBtn} onClick={()=>triggerDownload(buildMonthlyPDF)}>
+            <button style={s.dlBtn} onClick={()=>triggerDownload(()=>buildPDF(
+              t=>new Date(t.date).getFullYear()===safeYear,
+              String(safeYear)
+            ))}>
               🖨 PDF (Print)
             </button>
           </div>
