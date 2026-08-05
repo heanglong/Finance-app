@@ -71,47 +71,116 @@ const COLORS  = ["#E8C547","#7EC8A4","#F4A07A","#A8C5E8","#C5A8E8","#C8916B","#E
 const fmt   = n => new Intl.NumberFormat("en-US",{ style:"currency", currency:"USD", maximumFractionDigits:0 }).format(n);
 const today = () => new Date().toISOString().split("T")[0];
 
-// ─── Seed Data ────────────────────────────────────────────────────────────────
+// ─── Seed Data (Heang's real data restored from backup) ──────────────────────
 const SEED = {
   personal: [
-    { id:1,  type:"income",  category:"Salary",        amount:4200, note:"May paycheck",    date:"2026-05-01" },
-    { id:2,  type:"expense", category:"Housing",        amount:1400, note:"Rent",            date:"2026-05-02" },
-    { id:3,  type:"expense", category:"Food",           amount:85,   note:"Groceries",       date:"2026-05-10" },
-    { id:4,  type:"expense", category:"Transport",      amount:45,   note:"Gas",             date:"2026-05-12" },
-    { id:5,  type:"income",  category:"Freelance",      amount:800,  note:"Design project",  date:"2026-05-15" },
-    { id:6,  type:"expense", category:"Entertainment",  amount:60,   note:"Concert",         date:"2026-05-18" },
-    { id:7,  type:"expense", category:"Shopping",       amount:120,  note:"Clothes",         date:"2026-05-20" },
-    { id:8,  type:"income",  category:"Salary",         amount:4200, note:"Apr paycheck",    date:"2026-04-01" },
-    { id:9,  type:"expense", category:"Housing",        amount:1400, note:"Rent",            date:"2026-04-02" },
-    { id:10, type:"expense", category:"Food",           amount:210,  note:"Groceries",       date:"2026-04-15" },
-    { id:11, type:"income",  category:"Salary",         amount:4200, note:"Mar paycheck",    date:"2026-03-01" },
-    { id:12, type:"expense", category:"Housing",        amount:1400, note:"Rent",            date:"2026-03-02" },
-    { id:13, type:"expense", category:"Transport",      amount:90,   note:"Insurance",       date:"2026-03-10" },
-    { id:14, type:"income",  category:"Salary",         amount:4200, note:"Feb paycheck",    date:"2026-02-01" },
-    { id:15, type:"expense", category:"Housing",        amount:1400, note:"Rent",            date:"2026-02-02" },
-    { id:16, type:"income",  category:"Salary",         amount:4200, note:"Jan paycheck",    date:"2026-01-01" },
-    { id:17, type:"expense", category:"Shopping",       amount:350,  note:"New Year gear",   date:"2026-01-05" },
+    { id:1,   type:"income",  category:"Salary",           amount:962.62, note:"May salary",                    date:"2026-05-30" },
+    { id:2,   type:"income",  category:"Salary",           amount:962.54, note:"",                              date:"2026-06-30" },
+    { id:3,   type:"income",  category:"Other",            amount:15,     note:"Sister own",                    date:"2026-06-03" },
+    { id:4,   type:"expense", category:"Other",            amount:4,      note:"Netflix subscription",          date:"2026-06-01" },
+    { id:5,   type:"expense", category:"Food",             amount:6.25,   note:"",                              date:"2026-06-03" },
+    { id:6,   type:"expense", category:"Food",             amount:2,      note:"",                              date:"2026-06-04" },
+    { id:7,   type:"expense", category:"Trip",             amount:13.58,  note:"Trip to pp",                    date:"2026-06-04" },
+    { id:8,   type:"expense", category:"Event/Charity",    amount:10,     note:"Contribute with bong Vanthat",  date:"2026-06-04" },
+    { id:9,   type:"expense", category:"Trip",             amount:96,     note:"Trip to Chiphat",               date:"2026-06-07" },
+    { id:10,  type:"expense", category:"Event/Charity",    amount:17,     note:"Wedding Reaksmey",              date:"2026-06-07" },
+    { id:11,  type:"expense", category:"Health",           amount:19,     note:"Pp trip for doctor appointment",date:"2026-06-09" },
+    { id:12,  type:"expense", category:"Food",             amount:3.25,   note:"Drinks",                        date:"2026-06-09" },
+    { id:13,  type:"expense", category:"Event/Charity",    amount:2.5,    note:"Donations",                     date:"2026-06-10" },
+    { id:14,  type:"expense", category:"Snack and drink",  amount:2,      note:"Drinks",                        date:"2026-06-11" },
+    { id:15,  type:"expense", category:"Health",           amount:1,      note:"Exercise",                      date:"2026-06-11" },
+    { id:16,  type:"expense", category:"Item",             amount:4,      note:"Softer",                        date:"2026-06-13" },
+    { id:17,  type:"expense", category:"Shopping",         amount:3.5,    note:"T-shirt",                       date:"2026-06-14" },
+    { id:18,  type:"expense", category:"Health",           amount:1.5,    note:"Exercise",                      date:"2026-06-15" },
+    { id:19,  type:"expense", category:"Event/Charity",    amount:10,     note:"Help Ms. oun",                  date:"2026-06-15" },
+    { id:20,  type:"expense", category:"Transport",        amount:1.2,    note:"Gasoline",                      date:"2026-06-15" },
+    { id:21,  type:"expense", category:"Item",             amount:4.5,    note:"Water bottle",                  date:"2026-06-17" },
+    { id:22,  type:"expense", category:"Shopping",         amount:10,     note:"Clothes",                       date:"2026-06-17" },
+    { id:23,  type:"expense", category:"Item",             amount:10.16,  note:"Necklace",                      date:"2026-06-18" },
+    { id:24,  type:"expense", category:"Trip",             amount:87.34,  note:"Trip to kampot",                date:"2026-06-22" },
+    { id:25,  type:"expense", category:"Trip",             amount:22.54,  note:"Other expenses during trip to Kampot", date:"2026-06-22" },
+    { id:26,  type:"expense", category:"Skin care/Hair",   amount:21.5,   note:"Skin care",                     date:"2026-06-22" },
+    { id:27,  type:"expense", category:"Health",           amount:1,      note:"Exercise",                      date:"2026-06-22" },
+    { id:28,  type:"income",  category:"Salary",           amount:100,    note:"Uncle Phorn gave",              date:"2026-06-23" },
+    { id:29,  type:"expense", category:"Food",             amount:6.87,   note:"Vegetable",                     date:"2026-06-23" },
+    { id:30,  type:"expense", category:"Transport",        amount:2.2,    note:"Gasoline",                      date:"2026-06-23" },
+    { id:31,  type:"expense", category:"Snack and drink",  amount:1.25,   note:"",                              date:"2026-06-23" },
+    { id:32,  type:"expense", category:"Phone",            amount:4,      note:"Phone card",                    date:"2026-06-23" },
+    { id:33,  type:"expense", category:"Jewelry/gold",     amount:992,    note:"2G gold",                       date:"2026-06-24" },
+    { id:34,  type:"expense", category:"Health",           amount:1,      note:"Exercise",                      date:"2026-06-25" },
+    { id:35,  type:"expense", category:"Skin care/Hair",   amount:5,      note:"Lipstick",                      date:"2026-06-25" },
+    { id:36,  type:"expense", category:"Food",             amount:4,      note:"",                              date:"2026-06-27" },
+    { id:37,  type:"expense", category:"Food",             amount:4.5,    note:"For family",                    date:"2026-06-27" },
+    { id:38,  type:"expense", category:"Food",             amount:6,      note:"",                              date:"2026-06-29" },
+    { id:39,  type:"income",  category:"Other",            amount:32,     note:"Owe from Navy",                 date:"2026-06-30" },
+    { id:40,  type:"expense", category:"Snack and drink",  amount:5.68,   note:"Snack farewell",                date:"2026-06-30" },
+    { id:41,  type:"expense", category:"Item",             amount:2.5,    note:"Washing car",                   date:"2026-06-30" },
+    { id:42,  type:"expense", category:"Skin care/Hair",   amount:12,     note:"Shampoo",                       date:"2026-06-30" },
+    { id:43,  type:"expense", category:"Shopping",         amount:1.3,    note:"",                              date:"2026-06-05" },
+    { id:44,  type:"expense", category:"Food",             amount:2.5,    note:"Exercise and avocado",          date:"2026-07-03" },
+    { id:45,  type:"expense", category:"Item",             amount:1,      note:"",                              date:"2026-07-03" },
+    { id:46,  type:"expense", category:"Food",             amount:2.25,   note:"Breakfast",                     date:"2026-07-04" },
+    { id:47,  type:"expense", category:"Food",             amount:2,      note:"",                              date:"2026-07-07" },
+    { id:48,  type:"expense", category:"Health",           amount:36.65,  note:"Trip to pp",                    date:"2026-07-07" },
+    { id:49,  type:"expense", category:"Item",             amount:1.5,    note:"Exercise and detergent",        date:"2026-07-09" },
+    { id:50,  type:"expense", category:"Food",             amount:6.25,   note:"Eat out",                       date:"2026-07-11" },
+    { id:51,  type:"expense", category:"Health",           amount:0.75,   note:"Exercise",                      date:"2026-07-11" },
+    { id:52,  type:"expense", category:"Health",           amount:677.7,  note:"Annual insurance fee",          date:"2026-07-13" },
+    { id:53,  type:"expense", category:"Transport",        amount:17,     note:"Gasoline car",                  date:"2026-07-13" },
+    { id:54,  type:"expense", category:"Item",             amount:3,      note:"Socks",                         date:"2026-07-13" },
+    { id:55,  type:"expense", category:"Food",             amount:2,      note:"",                              date:"2026-07-15" },
+    { id:56,  type:"expense", category:"Food",             amount:6,      note:"Eat out",                       date:"2026-07-16" },
+    { id:57,  type:"expense", category:"Transport",        amount:2,      note:"Gasoline",                      date:"2026-07-16" },
+    { id:58,  type:"expense", category:"Health",           amount:23,     note:"Turmeric for mom",              date:"2026-07-16" },
+    { id:59,  type:"expense", category:"Transport",        amount:2.12,   note:"Gasoline",                      date:"2026-07-23" },
+    { id:60,  type:"expense", category:"Food",             amount:3,      note:"",                              date:"2026-07-22" },
+    { id:61,  type:"expense", category:"Entertainment",    amount:4,      note:"Netflix",                       date:"2026-07-22" },
+    { id:62,  type:"expense", category:"Item",             amount:16.52,  note:"Taopao",                        date:"2026-07-22" },
+    { id:63,  type:"expense", category:"Food",             amount:6.25,   note:"",                              date:"2026-07-19" },
+    { id:64,  type:"expense", category:"Jewelry/gold",     amount:571,    note:"Bought necklace and earring",   date:"2026-07-19" },
+    { id:65,  type:"income",  category:"Salary",           amount:960,    note:"Advanced salary",               date:"2026-07-19" },
+    { id:66,  type:"expense", category:"Food",             amount:4.12,   note:"Snack",                         date:"2026-07-26" },
+    { id:67,  type:"expense", category:"Food",             amount:2,      note:"",                              date:"2026-07-24" },
+    { id:68,  type:"expense", category:"Item",             amount:76.5,   note:"Laser for hair removal",        date:"2026-07-25" },
+    { id:69,  type:"expense", category:"Food",             amount:2,      note:"",                              date:"2026-07-25" },
+    { id:70,  type:"expense", category:"Health",           amount:1.5,    note:"Exercise",                      date:"2026-07-27" },
+    { id:71,  type:"expense", category:"Food",             amount:3.5,    note:"",                              date:"2026-07-27" },
+    { id:72,  type:"expense", category:"Event/Charity",    amount:7,      note:"",                              date:"2026-07-27" },
+    { id:73,  type:"expense", category:"Transport",        amount:3.26,   note:"Gasoline + washing my bike",    date:"2026-07-30" },
+    { id:74,  type:"expense", category:"Food",             amount:5.87,   note:"",                              date:"2026-07-29" },
+    { id:75,  type:"income",  category:"Salary",           amount:164,    note:"For August budget",             date:"2026-07-31" },
+    { id:76,  type:"expense", category:"Event/Charity",    amount:30,     note:"Donation to ODC",               date:"2026-07-31" },
+    { id:77,  type:"expense", category:"Food",             amount:16,     note:"Durian",                        date:"2026-08-02" },
+    { id:78,  type:"expense", category:"Skin care/Hair",   amount:5,      note:"",                              date:"2026-08-02" },
   ],
   coffeeshop: [
-    { id:101, type:"income",  category:"Coffee Sales",     amount:6800, note:"May revenue",       date:"2026-05-31" },
-    { id:102, type:"income",  category:"Food Sales",       amount:1200, note:"Pastries May",      date:"2026-05-31" },
-    { id:103, type:"expense", category:"Beans & Supplies", amount:720,  note:"Specialty beans",   date:"2026-05-05" },
-    { id:104, type:"expense", category:"Staff Wages",      amount:2800, note:"3 baristas",        date:"2026-05-30" },
-    { id:105, type:"expense", category:"Rent",             amount:2000, note:"May rent",          date:"2026-05-01" },
-    { id:106, type:"expense", category:"Utilities",        amount:380,  note:"Electricity+water", date:"2026-05-15" },
-    { id:107, type:"income",  category:"Coffee Sales",     amount:6400, note:"Apr revenue",       date:"2026-04-30" },
-    { id:108, type:"expense", category:"Staff Wages",      amount:2800, note:"Apr wages",         date:"2026-04-30" },
-    { id:109, type:"expense", category:"Rent",             amount:2000, note:"Apr rent",          date:"2026-04-01" },
-    { id:110, type:"expense", category:"Beans & Supplies", amount:680,  note:"Restock",           date:"2026-04-10" },
-    { id:111, type:"income",  category:"Coffee Sales",     amount:5900, note:"Mar revenue",       date:"2026-03-31" },
-    { id:112, type:"expense", category:"Staff Wages",      amount:2800, note:"Mar wages",         date:"2026-03-31" },
-    { id:113, type:"expense", category:"Rent",             amount:2000, note:"Mar rent",          date:"2026-03-01" },
-    { id:114, type:"income",  category:"Coffee Sales",     amount:5200, note:"Feb revenue",       date:"2026-02-28" },
-    { id:115, type:"expense", category:"Staff Wages",      amount:2800, note:"Feb wages",         date:"2026-02-28" },
-    { id:116, type:"expense", category:"Rent",             amount:2000, note:"Feb rent",          date:"2026-02-01" },
-    { id:117, type:"income",  category:"Coffee Sales",     amount:4800, note:"Jan revenue",       date:"2026-01-31" },
-    { id:118, type:"expense", category:"Equipment",        amount:1200, note:"Espresso machine",  date:"2026-01-10" },
-    { id:119, type:"expense", category:"Rent",             amount:2000, note:"Jan rent",          date:"2026-01-01" },
+    { id:101, type:"income",  category:"Coffee Sales",     amount:2412.30, note:"ABA bank",                    date:"2026-05-31" },
+    { id:102, type:"income",  category:"Coffee Sales",     amount:693.27,  note:"ACLEDA BANK",                 date:"2026-05-31" },
+    { id:103, type:"income",  category:"Other",            amount:3805.60, note:"",                            date:"2026-05-31" },
+    { id:104, type:"income",  category:"Tips",             amount:843.67,  note:"From mama",                   date:"2026-05-31" },
+    { id:105, type:"expense", category:"Marketing",        amount:100,     note:"Sent to mom account",         date:"2026-05-31" },
+    { id:106, type:"expense", category:"Equipment",        amount:3106.54, note:"May total expense",           date:"2026-05-31" },
+    { id:107, type:"income",  category:"Coffee Sales",     amount:2445.29, note:"",                            date:"2026-06-30" },
+    { id:108, type:"expense", category:"Other",            amount:61.94,   note:"Paid NSSF",                   date:"2026-06-01" },
+    { id:109, type:"expense", category:"Equipment",        amount:80,      note:"Bag",                         date:"2026-06-08" },
+    { id:110, type:"expense", category:"Marketing",        amount:2.8,     note:"Boost TikTok",                date:"2026-06-09" },
+    { id:111, type:"expense", category:"Beans & Supplies", amount:332,     note:"Funan coffee",                date:"2026-06-10" },
+    { id:112, type:"expense", category:"Equipment",        amount:673.5,   note:"E sour",                      date:"2026-06-12" },
+    { id:113, type:"expense", category:"Equipment",        amount:652.5,   note:"E sour",                      date:"2026-06-12" },
+    { id:114, type:"expense", category:"Beans & Supplies", amount:57,      note:"Cream powder 10kg",           date:"2026-06-13" },
+    { id:115, type:"expense", category:"Utilities",        amount:66.25,   note:"Utility at home",             date:"2026-06-16" },
+    { id:116, type:"expense", category:"Beans & Supplies", amount:332,     note:"Funan coffee",                date:"2026-06-24" },
+    { id:117, type:"expense", category:"Equipment",        amount:14,      note:"Syrub and cream powder",      date:"2026-06-27" },
+    { id:118, type:"income",  category:"Coffee Sales",     amount:2845.29, note:"Sales in June",               date:"2026-07-04" },
+    { id:119, type:"expense", category:"Equipment",        amount:666,     note:"Milk",                        date:"2026-07-01" },
+    { id:120, type:"expense", category:"Equipment",        amount:646.84,  note:"E sour",                      date:"2026-07-04" },
+    { id:121, type:"expense", category:"Equipment",        amount:570,     note:"E sour",                      date:"2026-07-04" },
+    { id:122, type:"expense", category:"Beans & Supplies", amount:332,     note:"Funan coffee",                date:"2026-07-09" },
+    { id:123, type:"expense", category:"Utilities",        amount:66,      note:"Electricity at home",         date:"2026-07-16" },
+    { id:124, type:"expense", category:"Beans & Supplies", amount:332,     note:"Funan coffee",                date:"2026-07-21" },
+    { id:125, type:"expense", category:"Equipment",        amount:10,      note:"Paper cup",                   date:"2026-07-21" },
+    { id:126, type:"expense", category:"Equipment",        amount:106,     note:"Plastic bags",                date:"2026-07-23" },
+    { id:127, type:"expense", category:"Beans & Supplies", amount:276,     note:"Fresh milk 20 boxes",         date:"2026-07-31" },
   ],
 };
 
@@ -248,8 +317,9 @@ export default function App() {
   const [nameInput, setNameInput]= useState("");
   const [shopInput, setShopInput]= useState("");
   const [shopName,  setShopName] = useState(() => loadStorage("fin_shopName", "Coffee Shop"));
-  const [showAdd,   setShowAdd]  = useState(false);
-  const [showCats,  setShowCats] = useState(false);
+  const [showAdd,      setShowAdd]     = useState(false);
+  const [showCats,     setShowCats]    = useState(false);
+  const [showSettings, setShowSettings]= useState(false);
   const [form,      setForm]     = useState({ type:"expense", category:"", amount:"", note:"", date:today() });
   const [mounted,   setMounted]  = useState(false);
 
@@ -324,7 +394,11 @@ export default function App() {
 
   const addTransaction = () => {
     if (!form.amount || isNaN(form.amount)) return;
-    setTxData(prev=>({ ...prev, [pocket]:[{ id:Date.now(), ...form, amount:parseFloat(form.amount) }, ...prev[pocket]] }));
+    const newTx = { id: Date.now(), ...form, amount: parseFloat(form.amount) };
+    setTxData(prev => ({
+      ...prev,
+      [pocket]: [...prev[pocket], newTx].sort((a,b) => new Date(b.date) - new Date(a.date))
+    }));
     setForm(f=>({ ...f, amount:"", note:"", date:today() }));
     setShowAdd(false);
   };
@@ -368,7 +442,10 @@ export default function App() {
             <div style={s.headerLabel}>{P.label}</div>
             <div style={s.headerSub}>All time · {txs.length} transactions</div>
           </div>
-          <button style={{ ...s.addBtn, background:P.accent }} onClick={()=>setShowAdd(true)}>+</button>
+          <div style={{ display:"flex", gap:8 }}>
+            <button style={{ ...s.addBtn, background:"#f0ede8", fontSize:18 }} onClick={()=>setShowSettings(true)}>⚙️</button>
+            <button style={{ ...s.addBtn, background:P.accent }} onClick={()=>setShowAdd(true)}>+</button>
+          </div>
         </div>
 
         {/* Balance card */}
@@ -446,6 +523,70 @@ export default function App() {
                 onAdd={name=>addCategory(type,name)} onRemove={name=>removeCategory(type,name)} accent={P.accent}/>
             ))}
             <button style={{ ...s.submitBtn, background:P.accent, marginTop:8 }} onClick={()=>setShowCats(false)}>Done</button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Settings Modal ── */}
+      {showSettings && (
+        <div style={s.overlay} onClick={()=>setShowSettings(false)}>
+          <div style={s.modal} onClick={e=>e.stopPropagation()}>
+            <div style={s.modalTitle}>Settings ⚙️</div>
+            <div style={{ fontSize:12, color:"#aaa", marginBottom:24 }}>Manage your app data and preferences.</div>
+
+            {/* Reset this pocket */}
+            <div style={s.settingsSection}>
+              <div style={s.settingsLabel}>Reset "{P.label}" Data</div>
+              <div style={{ fontSize:12, color:"#aaa", marginBottom:10 }}>Deletes all transactions for this pocket only. Other pocket is kept.</div>
+              <button style={{ ...s.submitBtn, background:"#E8C547", color:"#1a1a1a", marginTop:0 }}
+                onClick={()=>{
+                  if(window.confirm(`Delete ALL transactions in ${P.label}? This cannot be undone.`)) {
+                    setTxData(prev=>({ ...prev, [pocket]:[] }));
+                    setShowSettings(false);
+                  }
+                }}>
+                🗑 Clear {P.label} Transactions
+              </button>
+            </div>
+
+            <div style={{ height:1, background:"#f0ede8", margin:"20px 0" }}/>
+
+            {/* Full reset */}
+            <div style={s.settingsSection}>
+              <div style={s.settingsLabel}>Full Reset & Reload Fresh Data</div>
+              <div style={{ fontSize:12, color:"#aaa", marginBottom:10 }}>Clears everything and reloads your backed-up data. Use this when switching devices.</div>
+              <button style={{ ...s.submitBtn, background:"#E05A5A", marginTop:0 }}
+                onClick={()=>{
+                  if(window.confirm("This will clear ALL data and reload from backup. Are you sure?")) {
+                    localStorage.clear();
+                    window.location.reload();
+                  }
+                }}>
+                🔄 Reset & Reload Backup Data
+              </button>
+            </div>
+
+            <div style={{ height:1, background:"#f0ede8", margin:"20px 0" }}/>
+
+            {/* Change name */}
+            <div style={s.settingsSection}>
+              <div style={s.settingsLabel}>Change Name / Shop Name</div>
+              <div style={{ fontSize:12, color:"#aaa", marginBottom:10 }}>Reset the setup screen to update your name or coffee shop name.</div>
+              <button style={{ ...s.submitBtn, background:"#1a1a1a", marginTop:0 }}
+                onClick={()=>{
+                  if(window.confirm("This will reset your name setup. Data is kept.")) {
+                    saveStorage("fin_userName", null);
+                    setUserName(null);
+                    setShowSettings(false);
+                  }
+                }}>
+                ✏️ Change Name
+              </button>
+            </div>
+
+            <button style={{ ...s.submitBtn, background:"#f0ede8", color:"#888", marginTop:16 }} onClick={()=>setShowSettings(false)}>
+              Close
+            </button>
           </div>
         </div>
       )}
@@ -715,7 +856,7 @@ function PeriodPicker({ transactions, onDownload, onClose, accent }) {
 
 function Reports({ transactions, fmt, accent, pocketLabel }) {
   const [view,setView]=useState("monthly");
-  const [selectedYear,setSelectedYear]=useState(2026);
+  const [selectedYear,setSelectedYear]=useState(new Date().getFullYear());
   const [dlFeedback,setDlFeedback]=useState("");
   const [showPicker,setShowPicker]=useState(false);
 
@@ -1005,6 +1146,8 @@ const s = {
   legend:            { display:"flex", alignItems:"center", gap:4, fontSize:11, color:"#888" },
   yearBtn:           { padding:"6px 14px", borderRadius:20, border:"1px solid #ddd", background:"#fff", fontSize:13, fontWeight:600, color:"#888", cursor:"pointer", whiteSpace:"nowrap" },
   dlRow:             { display:"flex", gap:8, marginBottom:20 },
+  settingsSection:   { marginBottom:4 },
+  settingsLabel:     { fontSize:14, fontWeight:700, color:"#1a1a1a", marginBottom:6 },
   dlBtn:             { flex:1, padding:"11px 8px", borderRadius:12, border:"1.5px solid #e0ddd8", background:"#fff", fontSize:13, fontWeight:600, color:"#444", cursor:"pointer", fontFamily:"inherit" },
   dlFeedback:        { background:"#7EC8A4", color:"#fff", borderRadius:10, padding:"9px 14px", marginBottom:14, fontSize:13, fontWeight:600, textAlign:"center" },
 };
