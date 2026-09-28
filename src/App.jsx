@@ -68,7 +68,7 @@ const DEFAULT_BUDGETS = {
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const COLORS  = ["#E8C547","#7EC8A4","#F4A07A","#A8C5E8","#C5A8E8","#C8916B","#E8A4A4","#A4C8E8","#B4E8A4","#E8B4A4"];
 
-const fmt   = n => new Intl.NumberFormat("en-US",{ style:"currency", currency:"USD", maximumFractionDigits:0 }).format(n);
+const fmt   = n => new Intl.NumberFormat("en-US",{ style:"currency", currency:"USD", minimumFractionDigits:2, maximumFractionDigits:2 }).format(n);
 const today = () => new Date().toISOString().split("T")[0];
 
 // ─── Seed Data (Heang's real data restored from backup) ──────────────────────
